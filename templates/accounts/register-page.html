@@ -1,0 +1,37 @@
+{% extends 'common/base.html' %}
+{% load placeholder_filter %}
+
+{% block content %}
+	<div class="login-register-div">
+        <div class="login-register-box">
+            <h1>MuscleFuel</h1>
+
+            <!-- Start Login Form-->
+            <form method="post" class="login-register-form">
+                {% csrf_token %}
+
+                {{ form.email|placeholder:"Email" }}
+                {{ form.email.errors }}
+
+                {{ form.username|placeholder:"Username" }}
+                {{ form.username.errors }}
+
+                {{ form.password1|placeholder:"Password" }}
+                {{ form.password1.errors }}
+
+                {{ form.password2|placeholder:"Confirm password" }}
+                {{ form.password2.errors }}
+
+                <!-- Login Button-->
+                <button type="submit" class="submit-button">Register</button>
+            </form>
+            <!-- End Login Form -->
+
+        </div>
+        <div class="second-option">
+
+            <!-- Link to Register Page-->
+            <p>Have an account? <a href="{% url 'login' %}">Login</a></p>
+        </div>
+    </div>
+{% endblock %}

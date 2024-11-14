@@ -1,0 +1,252 @@
+@import './forms.css';
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #fff;
+    padding-top: 100px;
+}
+
+header {
+    background-color: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 50;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 82%;
+    margin: 0 auto;
+    padding: 10px 0;
+}
+
+.logo img {
+    width: 96px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 4vw;
+}
+
+.nav-links ul {
+    display: flex;
+    list-style: none;
+    gap: 2em;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    font-size: 16px;
+    color: #000;
+    transition: color 0.3s;
+}
+
+.nav-links li a:hover {
+    color: #6b7280;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+#register {
+    background-color: #34d399;
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 9999px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+#register:hover {
+    background-color: #065f46;
+}
+
+#sign-in {
+    background-color: #fff;
+    color: #000000;
+    padding: 8px 20px;
+    border: black 1px solid;
+    border-radius: 9999px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+#sign-in:hover {
+    background-color: #000000;
+    color: #fff;
+}
+
+.menu-icon {
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.recipesTypes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f3f4f6;
+    padding-top: 28px;
+    padding-bottom: 75px;
+}
+
+.recipe-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    max-width: 1440px;
+}
+
+.recipe-card {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    transition: opacity 0.3s;
+}
+
+.recipe-card img {
+    width: 300px;
+    height: 350px;
+    object-fit: cover;
+}
+
+.recipe-card p {
+    background-color: #facc15;
+    color: #fff;
+    padding: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    position: relative;
+    margin: 0 auto;
+    margin-top: -32px;
+}
+
+.recipe-grid a {
+    text-decoration: none;
+}
+
+.recipe-card:hover {
+    opacity: 0.6;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    position: relative;
+    margin-top: 16px;
+    right: 1.8%;
+}
+
+.search-bar form {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.search-bar i {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9ca3af;
+}
+
+.search-bar input {
+    padding: 12px 48px 12px 48px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 100%;
+}
+
+.search-bar input:focus {
+    outline: none;
+    border-color: #3b82f6;
+}
+
+#or {
+    font-family: 'Nothing You Could Do', cursive;
+    font-size: 1.5rem;
+    color: #9ca3af;
+}
+
+.view-all {
+    background-color: #b91c1c;
+    color: #fff;
+    padding: 12px 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background-color 0.5s;
+}
+
+.view-all:hover {
+    background-color: #000;
+}
+
+div.footer {
+    position: sticky;
+    bottom: 0;
+    margin: 20px auto;
+    width: 100%;
+    text-align: center;
+    z-index: -2;
+}
+
+.footer .footer-section {
+    position: relative;
+    width: 100%;
+    font-size: 12px;
+    font-family: sans-serif;
+    z-index: -2;
+}
+
+.footer a:hover {
+    color: #ff0000;
+}
+
+.login-register-div {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.login-register-box, .second-option {
+	display: block;
+	width: 350px;
+	background-color: rgb(255, 255, 255);
+	border: 1px solid rgb(156, 152, 152);
+	padding: 40px;
+	margin-bottom: 15px;
+	border-radius: 3px;
+	border: 1px solid;
+	box-shadow: 1px 2px 3px #888888;
+}
+
+.login-register-box h1 {
+	font-family: 'Indie Flower', cursive;
+	font-size: 40px;
+	text-align: center;
+	margin-top: -10px;
+}
+
+.login-register-box label {
+	display: none;
+}
+

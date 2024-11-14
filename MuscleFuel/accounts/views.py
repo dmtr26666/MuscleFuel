@@ -1,0 +1,20 @@
+from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.views import LoginView
+from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
+from MuscleFuel.accounts.forms import CustomUserCreationForm
+
+UserModel = get_user_model()
+
+# Create your views here.
+
+class CustomUserLoginView(LoginView):
+    template_name = 'accounts/login-page.html'
+
+class CustomUserRegistrationView(CreateView):
+    model = UserModel
+    form_class = CustomUserCreationForm
+    template_name = 'accounts/register-page.html'
+    success_url = reverse_lazy('index')

@@ -1,0 +1,33 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block content %}
+    <section class="recipesTypes">
+        <div class="recipe-grid">
+            <a href="#" class="recipe-card">
+                <img src="{% static 'images/breakfast.jpg' %}" alt="">
+                <p>Breakfast</p>
+            </a>
+            <a href="#" class="recipe-card">
+                <img src="{% static 'images/lunch.jpg' %}" alt="">
+                <p>Lunch</p>
+            </a>
+            <a href="#" class="recipe-card">
+                <img src="{% static 'images/dinner.jpg' %}" alt="">
+                <p>Dinner</p>
+            </a>
+            <a href="#" class="recipe-card">
+                <img src="{% static 'images/snack.png' %}" alt="">
+                <p>Snack</p>
+            </a>
+        </div>
+        <div class="search-bar">
+            <form action="">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Search a recipe">
+            </form>
+            <span id="or">or</span>
+            <a href="#" class="view-all">View All Recipes</a>
+        </div>
+    </section>
+{% endblock %}
