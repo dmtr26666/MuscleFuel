@@ -17,10 +17,10 @@
             <a href="{% url 'login' %}" id="sign-in">Sign In</a>
             <a href="{% url 'register' %}" id="register">Register</a>
         {% else %}
-            <a href="#">Profile</a>
+            <a href="#" id="profile">Profile</a>
             <form method="post" action="{% url 'logout' %}">
                 {% csrf_token %}
-                <button class="button" type="submit"><i>Logout</i></button>
+                <button id="logoutBtn" type="submit" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></button>
             </form>
         {% endif %}
     </div>

@@ -35,6 +35,7 @@ ALLOWED_HOSTS = []
 PROJECT_MADE_APPS = [
     'MuscleFuel.accounts',
     'MuscleFuel.common',
+    'MuscleFuel.recipes',
 ]
 
 INSTALLED_APPS = [

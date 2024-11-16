@@ -250,3 +250,22 @@ div.footer {
 	display: none;
 }
 
+#logoutBtn {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    color: #000000;
+    font: inherit;
+    cursor: pointer;
+    font-size: 22px;
+}
+
+#profile {
+    text-decoration: none;
+    color: #000000;
+    font: inherit;
+    cursor: pointer;
+    font-size: 18px;
+}
+
