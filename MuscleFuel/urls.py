@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('MuscleFuel.common.urls')),
     path('accounts/', include('MuscleFuel.accounts.urls')),
+    path('recipes/', include('MuscleFuel.recipes.urls')),
 ]

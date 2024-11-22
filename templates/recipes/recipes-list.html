@@ -1,0 +1,28 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+    <div class="recipe-list-container">
+        <form method="get" class="filter-form">
+            <div class="sidebar">
+                <h3>Filter Recipes</h3>
+                {{ filter.form.as_p }}
+                <button type="submit" class="filter-button">Apply Filters</button>
+            </div>
+        </form>
+    
+        <div class="recipe-grid">
+            {% for recipe in recipes %}
+                <div class="recipe-item">
+                    <h2>{{ recipe.title }}</h2>
+                    <p>Category: {{ recipe.get_category_display }}</p>
+                    <p>Difficulty: {{ recipe.get_difficulty_display }}</p>
+                    <p>Cook Time: {{ recipe.cook_time }} minutes</p>
+                    <p>Servings: {{ recipe.servings }}</p>
+                    <p>{{ recipe.description|truncatewords:20 }}</p>
+                </div>
+            {% empty %}
+                <p>No recipes found.</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
