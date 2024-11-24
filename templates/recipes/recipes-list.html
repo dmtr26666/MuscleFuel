@@ -9,16 +9,25 @@
                 <button type="submit" class="filter-button">Apply Filters</button>
             </div>
         </form>
-    
+
         <div class="recipe-grid">
             {% for recipe in recipes %}
-                <div class="recipe-item">
-                    <h2>{{ recipe.title }}</h2>
-                    <p>Category: {{ recipe.get_category_display }}</p>
-                    <p>Difficulty: {{ recipe.get_difficulty_display }}</p>
-                    <p>Cook Time: {{ recipe.cook_time }} minutes</p>
-                    <p>Servings: {{ recipe.servings }}</p>
-                    <p>{{ recipe.description|truncatewords:20 }}</p>
+                <div class="recipe-card">
+                    <div class="recipe-content">
+                        <div class="image-container">
+                            <a href="{% url 'recipe-details' recipe.pk %}"><img src="{{ recipe.image.url }}" alt="{{ recipe.title }}"></a>
+                        </div>
+                        <div class="text-container">
+                            <a href="{% url 'recipe-details' recipe.pk %}"><h3 class="recipe-title">{{ recipe.title }}</h3></a>
+                            <p class="recipe-description">{{ recipe.description|truncatewords:10 }}</p>
+                            <p class="macro">Protein: {{ recipe.protein }} g. | Calories: {{ recipe.calories }} / per serving</p>
+                        </div>
+                    </div>
+                    <div class="meta-info">
+                        <span class="cook-time"><i class="fa-solid fa-clock"></i> {{ recipe.cook_time|default:"N/A" }} mins</span>
+                        <span class="difficulty"><i class="fa-solid fa-gauge"></i> {{ recipe.difficulty|title }}</span>
+                        <span class="servings"><i class="fa-solid fa-utensils"></i> {{ recipe.servings|title }} servings</span>
+                    </div>
                 </div>
             {% empty %}
                 <p>No recipes found.</p>

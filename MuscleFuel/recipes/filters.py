@@ -8,4 +8,4 @@ class RecipeFilter(django_filters.FilterSet):
 
     class Meta:
         model = Recipe
-        fields = ['category', 'difficulty', 'cook_time', 'is_public']
+        fields = ['category', 'difficulty', 'cook_time']

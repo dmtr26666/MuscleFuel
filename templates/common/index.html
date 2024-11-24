@@ -3,20 +3,20 @@
 
 {% block content %}
     <section class="recipesTypes">
-        <div class="recipe-grid">
-            <a href="#" class="recipe-card">
+        <div class="recipe-header-grid">
+            <a href="{% url 'recipe-list' %}?category=BREAKFAST" class="recipe-header-card">
                 <img src="{% static 'images/breakfast.jpg' %}" alt="">
                 <p>Breakfast</p>
             </a>
-            <a href="#" class="recipe-card">
+            <a href="{% url 'recipe-list' %}?category=LUNCH" class="recipe-header-card">
                 <img src="{% static 'images/lunch.jpg' %}" alt="">
                 <p>Lunch</p>
             </a>
-            <a href="#" class="recipe-card">
+            <a href="{% url 'recipe-list' %}?category=DINNER" class="recipe-header-card">
                 <img src="{% static 'images/dinner.jpg' %}" alt="">
                 <p>Dinner</p>
             </a>
-            <a href="#" class="recipe-card">
+            <a href="{% url 'recipe-list' %}?category=SNACK" class="recipe-header-card">
                 <img src="{% static 'images/snack.png' %}" alt="">
                 <p>Snack</p>
             </a>
@@ -27,7 +27,7 @@
                 <input type="text" placeholder="Search a recipe">
             </form>
             <span id="or">or</span>
-            <a href="#" class="view-all">View All Recipes</a>
+            <a href="{% url 'recipe-list' %}" class="view-all">View All Recipes</a>
         </div>
     </section>
 {% endblock %}

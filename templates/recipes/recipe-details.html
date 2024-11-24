@@ -1,0 +1,54 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+    <section class="recipe-details-header">
+        <div class="details-container">
+            <div class="recipe-details-image">
+                <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
+            </div>
+            <div class="recipe-details-info">
+                <h1 id="recipe-details-title">{{ recipe.title }}</h1>
+                <p>Author: <a href="">{{ recipe.user.username }}</a></p>
+                {# To add rating #}
+                <div class="recipe-details-meta-info">
+                    <span class="cook-time"><i class="fa-solid fa-clock"></i> {{ recipe.cook_time|default:"N/A" }} mins</span>
+                    <span class="difficulty"><i class="fa-solid fa-gauge"></i> {{ recipe.difficulty|title }}</span>
+                    <span class="servings"><i
+                            class="fa-solid fa-utensils"></i> {{ recipe.servings|title }} servings</span>
+                </div>
+                <div class="macro-stats-card">
+                    <div class="macro">
+                        <span class="icon">🥩</span>
+                        <span class="label">Protein:</span>
+                        <span class="value">{{ recipe.protein }}g</span>
+                        <div class="progress-bar" style="--percent: {{ protein_percentage }}%;"></div>
+                    </div>
+                    <div class="macro">
+                        <span class="icon">🍞</span>
+                        <span class="label">Carbs:</span>
+                        <span class="value">{{ recipe.carbohydrates }}g</span>
+                        <div class="progress-bar" style="--percent: {{ carbohydrates_percentage }}%;"></div>
+                    </div>
+                    <div class="macro">
+                        <span class="icon">🥑</span>
+                        <span class="label">Fat:</span>
+                        <span class="value">{{ recipe.fat }}g</span>
+                        <div class="progress-bar" style="--percent: {{ fat_percentage }}%;"></div>
+                    </div>
+                    <div class="macro">
+                        <span class="icon">🔥</span>
+                        <span class="label">Calories:</span>
+                        <span class="value">{{ recipe.calories }} kcal</span>
+                        <div class="progress-bar" style="--percent: {{ calories_percentage }}%;"></div>
+                    </div>
+                    <p id="macro-stats-note">*Macros for one serving</p>
+                </div>
+
+
+                <p>{{ recipe.description }}</p>
+                <a href="" id="save-recipe-btn"><i class="fa-regular fa-bookmark"></i> Save recipe</a>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
