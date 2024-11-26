@@ -4,6 +4,7 @@ from django.utils.text import slugify
 
 UserModel = get_user_model()
 
+
 class Recipe(models.Model):
     CATEGORY_CHOICES = [
         ('BREAKFAST', 'Breakfast'),
@@ -46,3 +47,34 @@ class Recipe(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
+
+class Review(models.Model):
+    rating = models.PositiveIntegerField(null=False, blank=False)
+    to_recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    user = models.ForeignKey(UserModel, on_delete=models.CASCADE, related_name='reviews')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+class Comment(models.Model):
+    class Meta:
+        indexes = [
+            models.Index(fields=['date_time_of_publication']),
+        ]
+        ordering = ['-date_time_of_publication']
+
+    text = models.TextField(
+        max_length=300,
+    )
+
+    date_time_of_publication = models.DateTimeField(
+        auto_now_add=True,
+    )
+
+    to_recipe = models.ForeignKey(
+        to=Recipe,
+        on_delete=models.CASCADE,
+    )
+
+    user = models.ForeignKey(
+        to=UserModel,
+        on_delete=models.CASCADE,
+    )
