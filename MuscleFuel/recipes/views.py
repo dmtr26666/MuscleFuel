@@ -33,4 +33,10 @@ class RecipeDetailsView(DetailView):
         context['fat_percentage'] = (context['recipe'].fat / total_macros) * 100 if total_macros else 0
         context['calories_percentage'] = (context['recipe'].calories / (context['recipe'].calories * 1.5)) * 100
 
+        raw_ingredients_list = context['recipe'].ingredients.split(',')
+
+        ingredients_list = [ingredient.strip() for ingredient in raw_ingredients_list]
+
+        context['ingredients_list'] = ingredients_list
+
         return context

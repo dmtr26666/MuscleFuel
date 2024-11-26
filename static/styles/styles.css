@@ -381,6 +381,42 @@ div.footer {
     color: #9ca3af;
 }
 
+.recipe-details-ingredients-method {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding-top: 24px;
+    padding-bottom: 24px;
+}
+
+.recipe-ingredients, .recipe-method {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 26px;
+    border: 2px solid #9f9f9f;
+    border-radius: 8px;
+    max-width: 400px;
+    width: 100%;
+}
+
+.recipe-ingredients h2, .recipe-method h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+    text-transform: uppercase;
+}
+
+#ingredients-list {
+    list-style-type: none;
+}
+
+#ingredients-list li {
+    margin-top: 12px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid lightgray;
+}
 
 
 
