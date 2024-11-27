@@ -1,10 +1,11 @@
-from django.shortcuts import render
-from django.template.defaultfilters import title
-from django.views.generic import ListView, DetailView
+from django.shortcuts import get_object_or_404, redirect
+from django.views import View
+from django.views.generic import ListView, DetailView, FormView
 from django_filters.views import FilterView
 
 from MuscleFuel.recipes.filters import RecipeFilter
-from MuscleFuel.recipes.models import Recipe
+from MuscleFuel.recipes.forms import ReviewForm
+from MuscleFuel.recipes.models import Recipe, Review
 
 
 # Create your views here.
@@ -44,5 +45,29 @@ class RecipeDetailsView(DetailView):
         ingredients_list = [ingredient.strip() for ingredient in raw_ingredients_list]
 
         context['ingredients_list'] = ingredients_list
+        context['stars_range'] = range(1, 6)
+
+        user_review = None
+        if self.request.user.is_authenticated:
+            user_review = self.object.review_set.filter(user=self.request.user).first()
+        context['user_review'] = user_review
 
         return context
+
+class RecipeReviewSubmit(View):
+    def post(self, request, *args, **kwargs):
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            rating = form.cleaned_data['rating']
+            recipe_id = form.cleaned_data['recipe_id']
+            recipe = get_object_or_404(Recipe, id=recipe_id)
+
+            # Prevent duplicate reviews for the same user and recipe
+            review, created = Review.objects.update_or_create(
+                user=request.user,
+                to_recipe=recipe,
+                defaults={'rating': rating},
+            )
+
+        return redirect(request.META.get('HTTP_REFERER'))
+

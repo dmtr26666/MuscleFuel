@@ -1,7 +1,7 @@
 @import './forms.css';
 @import './navbar.css';
 @import './recipe-list.css';
-
+@import './recipe-details.css';
 
 * {
     margin: 0;

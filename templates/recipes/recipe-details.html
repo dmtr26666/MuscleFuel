@@ -66,4 +66,71 @@
         </div>
     </section>
 
+    <div class="rating-container">
+        {% if user_review %}
+            <h3>Your review</h3>
+            <div class="star-rating">
+                {% for i in stars_range %}
+                    <i class="fa fa-star star {% if i <= user_review.rating %}selected{% endif %}" data-value="{{ i }}" id="star-{{ i }}"></i>
+                {% endfor %}
+            </div>
+
+        {% else %}
+            <h3>Leave a review</h3>
+
+            <div class="star-rating">
+                {% for i in stars_range %}
+                    <i class="fa fa-star star" data-value="{{ i }}" id="star-{{ i }}"></i>
+                {% endfor %}
+            </div>
+
+            <form id="review-form" method="post" action="{% url 'submit-review' %}">
+                {% csrf_token %}
+                <input type="hidden" id="star-rating" name="rating" value="0">
+                <input type="hidden" name="recipe_id" value="{{ recipe.id }}">
+                <button type="submit" class="submit-review-button">Submit Review</button>
+            </form>
+        {% endif %}
+        <script>
+        const stars = document.querySelectorAll('.star');
+        const starRatingInput = document.getElementById('star-rating');
+
+        stars.forEach((star, index) => {
+            star.addEventListener('mouseover', () => {
+                // Highlight the stars up to the hovered one
+                stars.forEach((s, i) => {
+                    if (i <= index) {
+                        s.classList.add('hovered');
+                    } else {
+                        s.classList.remove('hovered');
+                    }
+                });
+            });
+
+            star.addEventListener('mouseout', () => {
+                // Remove hover effect
+                stars.forEach((s) => s.classList.remove('hovered'));
+            });
+
+            star.addEventListener('click', () => {
+                // Set the selected rating
+                const rating = index + 1;
+                starRatingInput.value = rating;
+
+                // Highlight the stars up to the selected one
+                stars.forEach((s, i) => {
+                    if (i < rating) {
+                        s.classList.add('selected');
+                    } else {
+                        s.classList.remove('selected');
+                    }
+                });
+            });
+        });
+
+
+    </script>
+    </div>
+    
+
 {% endblock %}
