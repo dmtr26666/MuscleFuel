@@ -1,0 +1,169 @@
+.recipe-list-container {
+    display: flex;
+    margin: 100px;
+    gap: 60px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.filter-form {
+    flex: 0 0 350px;
+    background-color: #f8f8f8;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-right: 20px;
+    height: auto;             /* Make sure the height adapts to content */
+    min-height: 200px;        /* Optionally set a minimum height */
+    max-height: 100%;
+}
+
+.sidebar h3 {
+    font-size: 1.4em;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.recipe-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    max-width: 550px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 1rem;
+    padding: 12px;
+}
+
+.recipe-content {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.image-container {
+    flex: 0 0 150px; /* Fix the image container width to 150px */
+    height: 150px; /* Let height be determined by content */
+    overflow: hidden;
+}
+
+.image-container img {
+    width: 100%; /* Make the image take the full width of its container */
+    height: 100%; /* Maintain aspect ratio */
+    display: block; /* Remove any spacing issues */
+    object-fit: cover; /* Crop image to fit container */
+    border-right: 1px solid #ddd; /* Optional: Add a separator line */
+}
+
+.recipe-content {
+    padding: 1rem;
+}
+
+.recipe-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.recipe-description {
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+    color: #555;
+}
+
+.meta-info {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.recipe-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 1440px;
+}
+
+.filter-form input,
+.filter-form select {
+    width: 100%;                  /* Make input elements take full width */
+    padding: 10px;                /* Add padding inside the input */
+    margin-bottom: 15px;          /* Space below each field */
+    border: 1px solid #ccc;      /* Light border */
+    border-radius: 5px;          /* Rounded corners */
+    font-size: 1em;               /* Readable font size */
+}
+
+.filter-form input[type="range"] {
+    width: 100%;                  /* Full width for range input */
+    margin-bottom: 15px;          /* Space below range input */
+}
+
+.filter-form label {
+    font-weight: 500;             /* Make label text a little bold */
+    margin-bottom: 8px;           /* Space below the label */
+    display: block;               /* Block display for labels */
+    color: #555;                  /* Dark text for labels */
+}
+
+.filter-paragraph {
+    display: flex; /* Align the input elements horizontally */
+    align-items: flex-start; /* Vertically align the input fields */
+    gap: 10px; /* Space between the elements */
+}
+
+.cook-time input {
+    width: 80px; /* Set a width for the input fields (you can adjust this) */
+    padding: 5px; /* Add padding inside the input fields */
+    font-size: 1em; /* Font size for readability */
+}
+
+.cook-time span {
+    font-size: 1.2em; /* Slightly larger size for the '-' separator */
+    color: #333; /* Color for the separator */
+}
+
+.filter-controls {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 24px;
+}
+
+.clear-filters-button {
+    padding: 10px 20px;
+    background-color: #f44336;
+    font-size: 0.9rem;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.clear-filters-button:hover {
+    background-color: #e53935;
+}
+
+.filter-button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    font-size: 0.9rem;
+    color: white;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.filter-button:hover {
+    background-color: #45a049;
+}

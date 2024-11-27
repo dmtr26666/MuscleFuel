@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.template.defaultfilters import title
 from django.views.generic import ListView, DetailView
 from django_filters.views import FilterView
 
@@ -16,6 +17,11 @@ class RecipesListView(FilterView, ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
+
+        query = self.request.GET.get('q')
+
+        if query:
+            queryset.filter(title__icontains=query)
 
         return queryset.order_by('-created_at').filter(is_public=True)
 

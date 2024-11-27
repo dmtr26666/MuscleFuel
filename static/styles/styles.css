@@ -1,5 +1,7 @@
 @import './forms.css';
 @import './navbar.css';
+@import './recipe-list.css';
+
 
 * {
     margin: 0;
@@ -166,84 +168,6 @@ div.footer {
 
 .login-register-box label {
 	display: none;
-}
-
-.filter-form {
-    width: 20%;
-    float: left;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    margin-right: 20px;
-}
-
-.recipe-list-container {
-    display: flex;
-    margin: 100px;
-    gap: 60px;
-}
-
-.recipe-card {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    max-width: 500px;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 1rem;
-    padding: 12px;
-}
-
-.recipe-content {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-}
-
-.image-container {
-    flex: 0 0 150px; /* Fix the image container width to 150px */
-    height: 150px; /* Let height be determined by content */
-    overflow: hidden;
-}
-
-.image-container img {
-    width: 100%; /* Make the image take the full width of its container */
-    height: 100%; /* Maintain aspect ratio */
-    display: block; /* Remove any spacing issues */
-    object-fit: cover; /* Crop image to fit container */
-    border-right: 1px solid #ddd; /* Optional: Add a separator line */
-}
-
-.recipe-content {
-    padding: 1rem;
-}
-
-.recipe-title {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin: 0;
-}
-
-.recipe-description {
-    font-size: 0.9rem;
-    margin: 0.5rem 0;
-    color: #555;
-}
-
-.meta-info {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    font-size: 0.9rem;
-    color: #666;
-}
-
-.recipe-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    max-width: 1440px;
 }
 
 .macro {

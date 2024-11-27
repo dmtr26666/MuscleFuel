@@ -22,9 +22,10 @@
             </a>
         </div>
         <div class="search-bar">
-            <form action="">
+            <form action="{% url 'recipe-list' %}" method="get">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" placeholder="Search a recipe">
+                <input type="text" placeholder="Search a recipe" name="q">
+                <button type="submit" style="display: none;">Submit</button>
             </form>
             <span id="or">or</span>
             <a href="{% url 'recipe-list' %}" class="view-all">View All Recipes</a>
