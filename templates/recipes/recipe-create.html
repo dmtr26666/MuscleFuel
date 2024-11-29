@@ -1,0 +1,195 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+    <div class="recipe-creation-div">
+        <form method="post" enctype="multipart/form-data" class="recipe-form">
+            {% csrf_token %}
+
+            <!-- Display non-field errors -->
+            {% if form.non_field_errors %}
+                <div class="alert alert-danger">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            <div class="form-section recipe-details">
+                <h3>Recipe Details</h3>
+
+                <!-- Title -->
+                <div class="form-group">
+                    {{ form.title.label_tag }}
+                    {{ form.title }}
+                    {% if form.title.errors %}
+                        <div class="text-danger">
+                            {{ form.title.errors|join:", " }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Description -->
+                <div class="form-group">
+                    {{ form.description.label_tag }}
+                    {{ form.description }}
+                    {% if form.description.errors %}
+                        <div class="text-danger">
+                            {{ form.description.errors|join:", " }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Ingredients -->
+                <div class="form-group">
+                    {{ form.ingredients.label_tag }}
+                    {{ form.ingredients }}
+                    {% if form.ingredients.errors %}
+                        <div class="text-danger">
+                            {{ form.ingredients.errors|join:", " }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Instructions -->
+                <div class="form-group">
+                    {{ form.instructions.label_tag }}
+                    {{ form.instructions }}
+                    {% if form.instructions.errors %}
+                        <div class="text-danger">
+                            {{ form.instructions.errors|join:", " }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Image -->
+                <div class="form-group">
+                    {{ form.image.label_tag }}
+                    {{ form.image }}
+                    {% if form.image.errors %}
+                        <div class="text-danger">
+                            {{ form.image.errors|join:", " }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Cook Time -->
+                <div class="form-group">
+                    {{ form.cook_time.label_tag }}
+                    {{ form.cook_time }}
+                    {% if form.cook_time.errors %}
+                        <div class="text-danger">
+                            {{ form.cook_time.errors|join:", " }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Servings -->
+                <div class="form-group">
+                    {{ form.servings.label_tag }}
+                    {{ form.servings }}
+                    {% if form.servings.errors %}
+                        <div class="text-danger">
+                            {{ form.servings.errors|join:", " }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Categories -->
+                <div class="form-group">
+                    <label for="id_category">Categories:</label>
+                    <div class="checkbox-group">
+                        {% for choice in form.categories.field.queryset %}
+                            <div class="form-check">
+                                <input type="checkbox" name="categories" value="{{ choice.id }}"
+                                       id="category_{{ choice.id }}"
+                                       {% if choice in form.categories.value %}checked{% endif %}
+                                       class="form-check-input">
+                                <label for="category_{{ choice.id }}"
+                                       class="form-check-label">{{ choice.category }}</label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    {% if form.categories.errors %}
+                        <div class="text-danger">
+                            {{ form.categories.errors|join:", " }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Difficulty -->
+                <div class="form-group">
+                    {{ form.difficulty.label_tag }}
+                    {{ form.difficulty }}
+                    {% if form.difficulty.errors %}
+                        <div class="text-danger">
+                            {{ form.difficulty.errors|join:", " }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Public Checkbox -->
+                <div id="is_public" class="form-group">
+                    {{ form.is_public.label_tag }}
+                    {{ form.is_public }}
+                    {% if form.is_public.errors %}
+                        <div class="text-danger">
+                            {{ form.is_public.errors|join:", " }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-section recipe-macros">
+                <h3>Recipe Macros (per serving)</h3>
+
+                <!-- Calories -->
+                <div class="form-group">
+                    {{ form.calories.label_tag }}
+                    {{ form.calories }}
+                    {% if form.calories.errors %}
+                        <div class="text-danger">
+                            {{ form.calories.errors|join:", " }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Protein -->
+                <div class="form-group">
+                    {{ form.protein.label_tag }}
+                    {{ form.protein }}
+                    {% if form.protein.errors %}
+                        <div class="text-danger">
+                            {{ form.protein.errors|join:", " }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Carbohydrates -->
+                <div class="form-group">
+                    {{ form.carbohydrates.label_tag }}
+                    {{ form.carbohydrates }}
+                    {% if form.carbohydrates.errors %}
+                        <div class="text-danger">
+                            {{ form.carbohydrates.errors|join:", " }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Fat -->
+                <div class="form-group">
+                    {{ form.fat.label_tag }}
+                    {{ form.fat }}
+                    {% if form.fat.errors %}
+                        <div class="text-danger">
+                            {{ form.fat.errors|join:", " }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary submit-button">Create Recipe</button>
+            </div>
+        </form>
+
+
+    </div>
+{% endblock %}

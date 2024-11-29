@@ -41,3 +41,9 @@
     padding-top: 28px;
     padding-bottom: 28px;
 }
+
+.average_rating p {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}

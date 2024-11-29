@@ -1,10 +1,13 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Avg
 from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import ListView, DetailView, FormView
+from django.views.generic import ListView, DetailView, FormView, CreateView
 from django_filters.views import FilterView
 
 from MuscleFuel.recipes.filters import RecipeFilter
-from MuscleFuel.recipes.forms import ReviewForm
+from MuscleFuel.recipes.forms import ReviewForm, RecipeCreationForm
 from MuscleFuel.recipes.models import Recipe, Review
 
 
@@ -40,6 +43,9 @@ class RecipeDetailsView(DetailView):
         context['fat_percentage'] = (context['recipe'].fat / total_macros) * 100 if total_macros else 0
         context['calories_percentage'] = (context['recipe'].calories / (context['recipe'].calories * 1.5)) * 100
 
+        average_rating = self.object.review_set.aggregate(average=Avg('rating'))['average']
+        context['average_rating'] = average_rating or 0
+
         raw_ingredients_list = context['recipe'].ingredients.split(',')
 
         ingredients_list = [ingredient.strip() for ingredient in raw_ingredients_list]
@@ -54,7 +60,7 @@ class RecipeDetailsView(DetailView):
 
         return context
 
-class RecipeReviewSubmit(View):
+class RecipeReviewSubmit(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         form = ReviewForm(request.POST)
         if form.is_valid():
@@ -71,3 +77,18 @@ class RecipeReviewSubmit(View):
 
         return redirect(request.META.get('HTTP_REFERER'))
 
+
+class RecipeAddView(LoginRequiredMixin, CreateView):
+    model = Recipe
+    form_class = RecipeCreationForm
+    template_name = 'recipes/recipe-create.html'
+
+    def get_success_url(self):
+        return reverse_lazy('recipe-details', kwargs={'pk': self.object.pk})
+
+    def form_valid(self, form):
+        recipe = form.save(commit=False)
+        recipe.user = self.request.user
+
+        print("Form cleaned data:", form.cleaned_data)
+        return super().form_valid(form)

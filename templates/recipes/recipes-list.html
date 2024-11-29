@@ -10,10 +10,25 @@
                     <label for="{{ filter.form.q.id_for_label }}">Title: </label>
                     {{ filter.form.q }}
                 </p>
-                <p class="filter-paragraph">
-                    <label for="{{ filter.form.category.id_for_label }}">Category: </label>
-                    {{ filter.form.category }}
-                </p>
+                <div class="form-group">
+                    <label for="id_category">Categories</label>
+                    <div class="checkbox-group">
+                        {% for choice in filter.form.categories.field.queryset %}
+                            <div class="form-check">
+                                <input type="checkbox" name="categories" value="{{ choice.id }}"
+                                       id="category_{{ choice.id }}"
+                                       {% if choice in filter.form.categories.value %}checked{% endif %}
+                                       class="form-check-input">
+                                <label for="category_{{ choice.id }}"
+                                       class="form-check-label">{{ choice.category }}</label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+{#                <p class="filter-paragraph">#}
+{#                    <label for="{{ filter.form.categories.id_for_label }}">Category: </label>#}
+{#                    {{ filter.form.categories }}#}
+{#                </p>#}
                 <p class="filter-paragraph">
                     <label for="{{ filter.form.difficulty.id_for_label }}">Difficulty: </label>
                     {{ filter.form.difficulty }}

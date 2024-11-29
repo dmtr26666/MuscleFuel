@@ -4,7 +4,7 @@ h1 {
 }
 
 /* Style the form and its fields */
-.login-register-form {
+.login-register-form, .recipe-add-form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -46,13 +46,13 @@ input:focus {
     background-color: #0056b3;
 }
 
-.login-register-form label {
+.login-register-form label, .recipe-add-form label {
     display: block;
     margin-bottom: 0.5rem;
     text-align: left;
 }
 
-.login-register-form input {
+.login-register-form input, .recipe-add-form input {
     width: 100%;
     padding: 0.5rem;
     border: 1px solid #ccc;
@@ -60,7 +60,7 @@ input:focus {
     font-size: 1rem;
 }
 
-.login-register-form input:focus {
+.login-register-form input:focus, .recipe-add-form input:focus {
     outline: none;
     border-color: #3b82f6;
 }
@@ -69,4 +69,103 @@ input:focus {
 	text-align: center;
 	padding: 20px;
 }
+
+.recipe-creation-div {
+    margin-top: 100px;
+}
+
+.recipe-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.form-section {
+    flex: 1 1 calc(50% - 10px); /* Two equal sections with some gap */
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background-color: #fff;
+}
+
+.form-section h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #333;
+    border-bottom: 2px solid #ffd700;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.form-section label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #444;
+}
+
+.form-section input[type="text"],
+.form-section input[type="number"],
+.form-section textarea,
+.form-section select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.form-actions {
+    width: 100%;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.form-check {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 8px;
+}
+
+.checkbox-group {
+    margin-left: 12px;
+    margin-bottom: 16px;
+}
+
+.form-check label {
+    margin-bottom: 0;
+}
+
+#is_public {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+#is_public label {
+    margin-bottom: 0;
+}
+
+.text-danger {
+    color: red;
+    font-size: 0.875rem;
+    font-weight: bold;
+    margin-top: 0.25rem;
+}
+
+
 

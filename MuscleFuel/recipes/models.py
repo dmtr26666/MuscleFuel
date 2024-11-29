@@ -1,11 +1,11 @@
+from cloudinary.models import CloudinaryField
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.text import slugify
 
 UserModel = get_user_model()
 
-
-class Recipe(models.Model):
+class Category(models.Model):
     CATEGORY_CHOICES = [
         ('BREAKFAST', 'Breakfast'),
         ('LUNCH', 'Lunch'),
@@ -15,6 +15,12 @@ class Recipe(models.Model):
         ('DRINK', 'Drink'),
     ]
 
+    category = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.category
+
+class Recipe(models.Model):
     DIFFICULTY_CHOICES = [
         ('EASY', 'Easy'),
         ('MEDIUM', 'Medium'),
@@ -27,14 +33,14 @@ class Recipe(models.Model):
     description = models.TextField()
     ingredients = models.TextField(help_text='List ingredients, separated by commas.')
     instructions = models.TextField(help_text='Step-by-step preparation instructions.')
-    image = models.ImageField(upload_to='recipes/', blank=False, null=False)
+    image = CloudinaryField('image', null=True, blank=True, folder='media/recipes')
     cook_time = models.PositiveIntegerField(help_text='Cooking time in minutes.')
     servings = models.PositiveIntegerField()
     calories = models.PositiveIntegerField()
     protein = models.PositiveIntegerField()
     carbohydrates = models.PositiveIntegerField()
     fat = models.PositiveIntegerField()
-    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
+    categories = models.ManyToManyField(Category, related_name='recipes')
     difficulty = models.CharField(max_length=10, choices=DIFFICULTY_CHOICES)
     is_public = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -56,7 +62,7 @@ class Review(models.Model):
 
     def __str__(self):
         return f"{self.user} - {self.rating} stars"
-    
+
 
 class Comment(models.Model):
     class Meta:

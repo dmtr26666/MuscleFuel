@@ -9,7 +9,13 @@
             <div class="recipe-details-info">
                 <h1 id="recipe-details-title">{{ recipe.title }}</h1>
                 <p>Author: <a href="">{{ recipe.user.username }}</a></p>
-                {# To add rating #}
+                <div class="average_rating">
+                    {% if average_rating != 0 %}
+                        <p><i class="fa fa-star star selected"></i>{{ average_rating }} average rating</p>
+                    {% else %}
+                        <p>There are no reviews</p>
+                    {% endif %}
+                </div>
                 <div class="recipe-details-meta-info">
                     <span class="cook-time"><i class="fa-solid fa-clock"></i> {{ recipe.cook_time|default:"N/A" }} mins</span>
                     <span class="difficulty"><i class="fa-solid fa-gauge"></i> {{ recipe.difficulty|title }}</span>
@@ -131,6 +137,6 @@
 
     </script>
     </div>
-    
+
 
 {% endblock %}

@@ -9,20 +9,25 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
+import os
+from dotenv import load_dotenv
 from pathlib import Path
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv()
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-=9v#&#i86kq*&pymtuny8#*t7sm)+q!r4&#hmk=&e0wgmw*&-2'
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -47,6 +52,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'django_filters',
+    'cloudinary',
+    'cloudinary_storage',
 
 ] + PROJECT_MADE_APPS
 
@@ -88,9 +95,9 @@ WSGI_APPLICATION = 'MuscleFuel.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "musclefuel",
-        "USER": "postgres",
-        "PASSWORD": "protein132",
+        "NAME": os.getenv("DB_NAME"),
+        "USER": os.getenv("DB_USER"),
+        "PASSWORD": os.getenv("DB_PASSWORD"),
         "HOST": "127.0.0.1",
         "PORT": "5432",
     }
@@ -142,8 +149,17 @@ STATICFILES_DIRS = (
     BASE_DIR / 'static',
 )
 
-MEDIA_URL = 'media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+cloudinary.config(
+    cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME'),
+    api_key=os.getenv('CLOUDINARY_API_KEY'),
+    api_secret=os.getenv('CLOUDINARY_SECRET_KEY')
+)
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+MEDIA_URL = f'https://res.cloudinary.com/{os.getenv("CLOUDINARY_CLOUD_NAME")}/'
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

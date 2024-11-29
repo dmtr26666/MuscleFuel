@@ -1,16 +1,22 @@
 import django_filters
+from django import forms
 
-from .models import Recipe
+from .models import Recipe, Category
+
 
 class RecipeFilter(django_filters.FilterSet):
     q = django_filters.CharFilter(method='filter_by_query', label='Title')
     cook_time = django_filters.RangeFilter()
-    category = django_filters.ChoiceFilter(choices=Recipe.CATEGORY_CHOICES, empty_label='All Categories')
+    categories = django_filters.ModelMultipleChoiceFilter(
+        queryset=Category.objects.all(),
+        widget=forms.CheckboxSelectMultiple,  # Use a multiple select widget for checkboxes
+        label='Categories',
+    )
     difficulty = django_filters.ChoiceFilter(choices=Recipe.DIFFICULTY_CHOICES, empty_label='All Difficulties')
 
     class Meta:
         model = Recipe
-        fields = ['q', 'category', 'difficulty', 'cook_time']
+        fields = ['q', 'categories', 'difficulty', 'cook_time']
 
     def filter_by_query(self, queryset, name, value):
         return queryset.filter(

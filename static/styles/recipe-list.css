@@ -89,7 +89,8 @@
     max-width: 1440px;
 }
 
-.filter-form input,
+.filter-form input[type="text"],
+.filter-form input[type="number"],
 .filter-form select {
     width: 100%;                  /* Make input elements take full width */
     padding: 10px;                /* Add padding inside the input */
