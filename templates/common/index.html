@@ -4,19 +4,19 @@
 {% block content %}
     <section class="recipesTypes">
         <div class="recipe-header-grid">
-            <a href="{% url 'recipe-list' %}?category=BREAKFAST" class="recipe-header-card">
+            <a href="{% url 'recipe-list' %}?categories={{ breakfast_id }}" class="recipe-header-card">
                 <img src="{% static 'images/breakfast.jpg' %}" alt="">
                 <p>Breakfast</p>
             </a>
-            <a href="{% url 'recipe-list' %}?category=LUNCH" class="recipe-header-card">
+            <a href="{% url 'recipe-list' %}?categories={{ lunch_id }}" class="recipe-header-card">
                 <img src="{% static 'images/lunch.jpg' %}" alt="">
                 <p>Lunch</p>
             </a>
-            <a href="{% url 'recipe-list' %}?category=DINNER" class="recipe-header-card">
+            <a href="{% url 'recipe-list' %}?categories={{ dinner_id }}" class="recipe-header-card">
                 <img src="{% static 'images/dinner.jpg' %}" alt="">
                 <p>Dinner</p>
             </a>
-            <a href="{% url 'recipe-list' %}?category=SNACK" class="recipe-header-card">
+            <a href="{% url 'recipe-list' %}?categories={{ snack_id }}" class="recipe-header-card">
                 <img src="{% static 'images/snack.png' %}" alt="">
                 <p>Snack</p>
             </a>

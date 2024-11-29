@@ -17,7 +17,7 @@
                             <div class="form-check">
                                 <input type="checkbox" name="categories" value="{{ choice.id }}"
                                        id="category_{{ choice.id }}"
-                                       {% if choice in filter.form.categories.value %}checked{% endif %}
+                                       {% if choice.id|stringformat:"s" in filter.form.categories.value %}checked{% endif %}
                                        class="form-check-input">
                                 <label for="category_{{ choice.id }}"
                                        class="form-check-label">{{ choice.category }}</label>
