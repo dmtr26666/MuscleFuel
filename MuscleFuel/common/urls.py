@@ -1,7 +1,7 @@
 from django.urls import path
 from MuscleFuel.common import views
-from MuscleFuel.common.views import IndexView
+from MuscleFuel.common import views
 
 urlpatterns = [
-    path('', IndexView.as_view(), name='index'),
+    path('', views.IndexView.as_view(), name='index'),
 ]

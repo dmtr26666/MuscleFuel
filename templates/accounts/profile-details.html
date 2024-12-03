@@ -1,0 +1,26 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="profile-details-header">
+        <div class="profile-information">
+            <div class="profile-image">
+                {% if user.profile.profile_picture %}
+                    <img src="{{ user.profile.profile_picture }}" alt="">
+                {% else %}
+                    <img src="{% static 'images/profile_pic.jpg' %}" alt="">
+                {% endif %}
+            </div>
+
+            <div class="personal-information">
+                <h2>{{ user.profile.get_full_name }}</h2>
+                <p>0 published recipes</p>
+                {% if user.pk == request.user.pk %}
+                    <p>0 saved recipes</p>
+                {% endif %}
+
+                <a href="" id="saved-recipes-btn"><i class="fa-regular fa-bookmark"></i> View saved recipes</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

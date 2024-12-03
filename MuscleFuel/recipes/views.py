@@ -90,5 +90,4 @@ class RecipeAddView(LoginRequiredMixin, CreateView):
         recipe = form.save(commit=False)
         recipe.user = self.request.user
 
-        print("Form cleaned data:", form.cleaned_data)
         return super().form_valid(form)
