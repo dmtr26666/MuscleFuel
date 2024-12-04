@@ -1,4 +1,5 @@
 {% extends 'common/base.html' %}
+{% load static %}
 
 {% block content %}
     <section class="recipe-details-header">
@@ -77,7 +78,8 @@
             <h3>Your review</h3>
             <div class="star-rating">
                 {% for i in stars_range %}
-                    <i class="fa fa-star star {% if i <= user_review.rating %}selected{% endif %}" data-value="{{ i }}" id="star-{{ i }}"></i>
+                    <i class="fa fa-star star {% if i <= user_review.rating %}selected{% endif %}" data-value="{{ i }}"
+                       id="star-{{ i }}"></i>
                 {% endfor %}
             </div>
 
@@ -98,44 +100,94 @@
             </form>
         {% endif %}
         <script>
-        const stars = document.querySelectorAll('.star');
-        const starRatingInput = document.getElementById('star-rating');
+            const stars = document.querySelectorAll('.star');
+            const starRatingInput = document.getElementById('star-rating');
 
-        stars.forEach((star, index) => {
-            star.addEventListener('mouseover', () => {
-                // Highlight the stars up to the hovered one
-                stars.forEach((s, i) => {
-                    if (i <= index) {
-                        s.classList.add('hovered');
-                    } else {
-                        s.classList.remove('hovered');
-                    }
+            stars.forEach((star, index) => {
+                star.addEventListener('mouseover', () => {
+                    // Highlight the stars up to the hovered one
+                    stars.forEach((s, i) => {
+                        if (i <= index) {
+                            s.classList.add('hovered');
+                        } else {
+                            s.classList.remove('hovered');
+                        }
+                    });
+                });
+
+                star.addEventListener('mouseout', () => {
+                    // Remove hover effect
+                    stars.forEach((s) => s.classList.remove('hovered'));
+                });
+
+                star.addEventListener('click', () => {
+                    // Set the selected rating
+                    const rating = index + 1;
+                    starRatingInput.value = rating;
+
+                    // Highlight the stars up to the selected one
+                    stars.forEach((s, i) => {
+                        if (i < rating) {
+                            s.classList.add('selected');
+                        } else {
+                            s.classList.remove('selected');
+                        }
+                    });
                 });
             });
 
-            star.addEventListener('mouseout', () => {
-                // Remove hover effect
-                stars.forEach((s) => s.classList.remove('hovered'));
-            });
 
-            star.addEventListener('click', () => {
-                // Set the selected rating
-                const rating = index + 1;
-                starRatingInput.value = rating;
+        </script>
 
-                // Highlight the stars up to the selected one
-                stars.forEach((s, i) => {
-                    if (i < rating) {
-                        s.classList.add('selected');
-                    } else {
-                        s.classList.remove('selected');
-                    }
-                });
-            });
-        });
+        <div class="recipe-comments">
+            <h3 class="lined">Comments (2)</h3>
+            <ul>
+                <li>
+                    <div class="avatar">
+                        <a href="#"><img src="{% static 'images/profile_pic.jpg' %}" alt="avatar"/></a>
+                    </div>
+                    <div class="comment">
+                        <h5><a href="#">John Doe</a></h5>
+                        <span class="time">(2hours ago)</span>
+                        <p>
+                            Rinse the chicken pieces in cold water and pat dry. Place the chicken in a large, resealable
+                            zip-top bag and pour in the marinade.
+                        </p>
+                    </div>
+                </li>
 
+                <li>
+                    <div class="avatar">
+                        <a href="#"><img src="{% static 'images/profile_pic.jpg' %}" alt="avatar"/></a>
+                    </div>
+                    <div class="comment">
+                        <h5><a href="#">John Doe</a></h5>
+                        <span class="time">(2hours ago)</span>
+                        <p>
+                            Rinse the chicken pieces in cold water and pat dry. Place the chicken in a large, resealable
+                            zip-top bag and pour in the marinade.
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </div>
 
-    </script>
+        <div class="comment-form">
+            <h3 class="lined">Leave Comment</h3>
+
+            <form action="#" method="post">
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="text" name="name" placeholder="Name"/>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="email" name="email" placeholder="Email"/>
+                    </div>
+                </div>
+                <textarea name="comment" id="comment" cols="30" rows="10" placeholder="Message"></textarea>
+                <button class="submit-comment">Submit</button>
+            </form>
+        </div>
     </div>
 
 
