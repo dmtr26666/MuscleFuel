@@ -71,20 +71,16 @@ class Comment(models.Model):
         ]
         ordering = ['-date_time_of_publication']
 
-    text = models.TextField(
-        max_length=300,
-    )
+    text = models.TextField(max_length=300)
+    date_time_of_publication = models.DateTimeField(auto_now_add=True)
+    to_recipe = models.ForeignKey(to=Recipe, on_delete=models.CASCADE)
+    user = models.ForeignKey(to=UserModel, on_delete=models.CASCADE)
 
-    date_time_of_publication = models.DateTimeField(
-        auto_now_add=True,
-    )
 
-    to_recipe = models.ForeignKey(
-        to=Recipe,
-        on_delete=models.CASCADE,
-    )
+class SavedRecipe(models.Model):
+    to_recipe = models.ForeignKey(to=Recipe, on_delete=models.CASCADE, related_name='favourited_by')
+    user = models.ForeignKey(to=UserModel, on_delete=models.CASCADE, related_name='favourites')
+    created_at = models.DateTimeField(auto_now_add=True)
 
-    user = models.ForeignKey(
-        to=UserModel,
-        on_delete=models.CASCADE,
-    )
+    class Meta:
+        unique_together = ('user', 'to_recipe')

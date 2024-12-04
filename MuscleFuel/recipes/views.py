@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Avg
 from django.shortcuts import get_object_or_404, redirect
@@ -8,7 +9,7 @@ from django_filters.views import FilterView
 
 from MuscleFuel.recipes.filters import RecipeFilter
 from MuscleFuel.recipes.forms import ReviewForm, RecipeCreationForm
-from MuscleFuel.recipes.models import Recipe, Review
+from MuscleFuel.recipes.models import Recipe, Review, SavedRecipe
 
 
 # Create your views here.
@@ -58,6 +59,8 @@ class RecipeDetailsView(DetailView):
             user_review = self.object.review_set.filter(user=self.request.user).first()
         context['user_review'] = user_review
 
+        self.object.is_saved = self.object.favourited_by.filter(user=self.request.user).exists()
+
         return context
 
 class RecipeReviewSubmit(LoginRequiredMixin, View):
@@ -77,6 +80,9 @@ class RecipeReviewSubmit(LoginRequiredMixin, View):
 
         return redirect(request.META.get('HTTP_REFERER'))
 
+    def get(self, request, *args, **kwargs):
+        return redirect('recipe-details', pk=kwargs['pk'])
+
 
 class RecipeAddView(LoginRequiredMixin, CreateView):
     model = Recipe
@@ -91,3 +97,16 @@ class RecipeAddView(LoginRequiredMixin, CreateView):
         recipe.user = self.request.user
 
         return super().form_valid(form)
+
+
+@login_required
+def toggle_favorite(request, pk):
+    recipe = get_object_or_404(Recipe, pk=pk)
+
+    if request.POST:
+        favorite, created = SavedRecipe.objects.get_or_create(user=request.user, to_recipe=recipe)
+
+        if not created:
+            favorite.delete()
+
+    return redirect('recipe-details', pk=pk)
