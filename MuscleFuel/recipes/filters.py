@@ -9,7 +9,7 @@ class RecipeFilter(django_filters.FilterSet):
     cook_time = django_filters.RangeFilter()
     categories = django_filters.ModelMultipleChoiceFilter(
         queryset=Category.objects.all(),
-        widget=forms.CheckboxSelectMultiple,  # Use a multiple select widget for checkboxes
+        widget=forms.CheckboxSelectMultiple,
         label='Categories',
     )
     difficulty = django_filters.ChoiceFilter(choices=Recipe.DIFFICULTY_CHOICES, empty_label='All Difficulties')

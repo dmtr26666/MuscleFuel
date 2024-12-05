@@ -41,3 +41,8 @@
     flex-direction: column;
     gap: 32px;
 }
+
+.saved-recipe-title {
+    display: flex;
+    justify-content: center;
+}

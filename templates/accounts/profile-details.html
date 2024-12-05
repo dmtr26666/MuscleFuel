@@ -19,7 +19,7 @@
                     <p>0 saved recipes</p>
                 {% endif %}
 
-                <a href="" id="saved-recipes-btn"><i class="fa-regular fa-bookmark"></i> View saved recipes</a>
+                <a href="{% url 'user-saved-recipes' request.user.pk %}" id="saved-recipes-btn"><i class="fa-regular fa-bookmark"></i> Saved recipes</a>
             </div>
         </div>
     </div>
