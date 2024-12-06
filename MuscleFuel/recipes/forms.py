@@ -1,6 +1,6 @@
 from django import forms
 
-from MuscleFuel.recipes.models import Recipe, Category
+from MuscleFuel.recipes.models import Recipe, Category, Comment
 
 
 class ReviewForm(forms.Form):
@@ -34,3 +34,13 @@ class RecipeCreationForm(forms.ModelForm):
             instance.save()
             self.save_m2m()
         return instance
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ["text",]
+
+        widgets = {
+            'text': forms.Textarea(attrs={'placeholder': 'Add comment...'}),
+        }

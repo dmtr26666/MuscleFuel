@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'django_filters',
     'cloudinary',
     'cloudinary_storage',
+    'django.contrib.humanize',
 
 ] + PROJECT_MADE_APPS
 

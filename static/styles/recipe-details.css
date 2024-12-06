@@ -228,12 +228,16 @@
 }
 
 .recipe-comments {
+    margin-top: 60px;
     margin-bottom: 60px;
+    max-width: 700px;
+    width: 100%;
 }
 .recipe-comments ul li {
-      clear: both;
-      margin-bottom: 28px;
-      margin-top: 28px;
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 28px;
+    margin-top: 28px;
 }
 .recipe-comments ul li ul {
     margin-left: 107px;
@@ -257,11 +261,9 @@
       color: #aaa6a5;
 }
 .recipe-comments .avatar {
-    float: left;
-    margin-right: 23px;
-    margin-bottom: 23px;
-    width: 83px;
+    flex: 0 0 83px;
     height: 78px;
+    margin-right: 20px;
 }
 .recipe-comments .avatar img {
     width: 100%;
@@ -270,9 +272,14 @@
 }
 
 .recipe-comments .comment {
+    flex: 1;
     background-color: #ffffff;
     overflow: hidden;
     padding: 10px 25px;
+    min-height: 78px;
+    box-sizing: border-box;
+    max-width: 600px;
+    width: 100%;
 }
 .recipe-comments .comment p {
     color: #7e7e7e;
@@ -300,50 +307,66 @@
     color: #000000;
 }
 .comment-form {
-    max-width: 450px;
+    max-width: 700px;
     width: 100%;
+    margin: 0 auto;
+    background-color: #ffffff;
+    padding: 20px 25px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
-.comment-form input,
+
+.comment-form h3 {
+    font-family: 'Lora', serif;
+    font-size: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+.comment-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
 .comment-form textarea {
     width: 100%;
-    border: none;
-    outline: none;
-    padding-left: 10px;
-    padding-right: 10px;
-}
-.comment-form input:focus {
-    border: none;
-    outline: none;
-    box-shadow:  none;
-}
-.comment-form input {
-    height: 50px;
-    border-bottom: 1px solid #e7e3e1;
-}
-.comment-form textarea {
-    margin-bottom: 40px;
-    background-color: transparent;
-    display: block;
-    line-height: 50px;
-    overflow: hidden;
+    height: 150px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+    color: #333;
+    background-color: #f9f9f9;
     resize: none;
-    background-image: linear-gradient(#ffffff 49px, #e7e3e1 50px);
-    background-size: 100% 50px;
-    height: 100px;
-    background-attachment: scroll;
+    box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.05);
+    outline: none;
 }
+
 .comment-form button {
-    height: 42px;
-    background: #6ebe3b;
+    width: 100%;
+    height: 45px;
+    background-color: #6ebe3b;
+    color: #ffffff;
     font-family: 'Lora', serif;
     font-size: 16px;
-    color: #ffffff;
-    padding: 0 35px;
+    font-weight: bold;
     border: none;
-    transition: 0.2s all ease-in-out;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
+
 .comment-form button:hover {
-    background: #000000;
+    background-color: #559c2e;
+    transform: translateY(-2px);
+}
+
+.comment-form button:active {
+    background-color: #477f25;
+    transform: translateY(0);
 }
 
 ul {
@@ -363,4 +386,11 @@ a:hover {
 a:focus {
     text-decoration: none;
     color: inherit;
+}
+
+#error-message {
+    color: #ff0000;
+    font-size: 14px;
+    margin-top: 10px;
+    display: none;
 }

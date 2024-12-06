@@ -1,5 +1,6 @@
 {% extends 'common/base.html' %}
 {% load static %}
+{% load humanize %}
 
 {% block content %}
     <section class="recipe-details-header">
@@ -56,9 +57,12 @@
                 <form method="post" action="{% url 'toggle-favourite' recipe.pk %}" class="favorite-form">
                     {% csrf_token %}
                     {% if recipe.is_saved %}
-                        <button type="submit" id="save-recipe-btn"><i class="fa-solid fa-bookmark"></i> Remove from saved</button>
+                        <button type="submit" id="save-recipe-btn"><i class="fa-solid fa-bookmark"></i> Remove from
+                            saved
+                        </button>
                     {% else %}
-                        <button type="submit" id="save-recipe-btn"><i class="fa-regular fa-bookmark"></i> Save recipe</button>
+                        <button type="submit" id="save-recipe-btn"><i class="fa-regular fa-bookmark"></i> Save recipe
+                        </button>
                     {% endif %}
                 </form>
             </div>
@@ -106,96 +110,99 @@
                 <button type="submit" class="submit-review-button">Submit Review</button>
             </form>
         {% endif %}
-        <script>
-            const stars = document.querySelectorAll('.star');
-            const starRatingInput = document.getElementById('star-rating');
-
-            stars.forEach((star, index) => {
-                star.addEventListener('mouseover', () => {
-                    // Highlight the stars up to the hovered one
-                    stars.forEach((s, i) => {
-                        if (i <= index) {
-                            s.classList.add('hovered');
-                        } else {
-                            s.classList.remove('hovered');
-                        }
-                    });
-                });
-
-                star.addEventListener('mouseout', () => {
-                    // Remove hover effect
-                    stars.forEach((s) => s.classList.remove('hovered'));
-                });
-
-                star.addEventListener('click', () => {
-                    // Set the selected rating
-                    const rating = index + 1;
-                    starRatingInput.value = rating;
-
-                    // Highlight the stars up to the selected one
-                    stars.forEach((s, i) => {
-                        if (i < rating) {
-                            s.classList.add('selected');
-                        } else {
-                            s.classList.remove('selected');
-                        }
-                    });
-                });
-            });
-
-
-        </script>
 
         <div class="recipe-comments">
-            <h3 class="lined">Comments (2)</h3>
+            <h3 class="lined">Comments ({{ comments|length }})</h3>
             <ul>
-                <li>
-                    <div class="avatar">
-                        <a href="#"><img src="{% static 'images/profile_pic.jpg' %}" alt="avatar"/></a>
-                    </div>
-                    <div class="comment">
-                        <h5><a href="#">John Doe</a></h5>
-                        <span class="time">(2hours ago)</span>
-                        <p>
-                            Rinse the chicken pieces in cold water and pat dry. Place the chicken in a large, resealable
-                            zip-top bag and pour in the marinade.
-                        </p>
-                    </div>
-                </li>
-
-                <li>
-                    <div class="avatar">
-                        <a href="#"><img src="{% static 'images/profile_pic.jpg' %}" alt="avatar"/></a>
-                    </div>
-                    <div class="comment">
-                        <h5><a href="#">John Doe</a></h5>
-                        <span class="time">(2hours ago)</span>
-                        <p>
-                            Rinse the chicken pieces in cold water and pat dry. Place the chicken in a large, resealable
-                            zip-top bag and pour in the marinade.
-                        </p>
-                    </div>
-                </li>
+                {% for comment in comments %}
+                    <li>
+                        <div class="avatar">
+                            <a href="{% url 'profile-details' comment.user.pk %}"><img
+                                    src="{{ comment.user.profile.profile_picture }}" alt="avatar"/></a>
+                        </div>
+                        <div class="comment">
+                            <h5>
+                                <a href="{% url 'profile-details' comment.user.pk %}">{{ comment.user.profile.get_full_name }}</a>
+                            </h5>
+                            <span class="time">{{ comment.date_time_of_publication|timesince }} ago</span>
+                            <p>{{ comment.text }}</p>
+                        </div>
+                    </li>
+                {% endfor %}
             </ul>
         </div>
 
         <div class="comment-form">
             <h3 class="lined">Leave Comment</h3>
 
-            <form action="#" method="post">
-                <div class="row">
-                    <div class="col-md-6">
-                        <input type="text" name="name" placeholder="Name"/>
-                    </div>
-                    <div class="col-md-6">
-                        <input type="email" name="email" placeholder="Email"/>
-                    </div>
-                </div>
-                <textarea name="comment" id="comment" cols="30" rows="10" placeholder="Message"></textarea>
-                <button class="submit-comment">Submit</button>
+            <form id="commentForm" action="{% url 'submit-comment' recipe.pk %}" method="post">
+                {% csrf_token %}
+                <textarea name="text" id="comment" cols="30" rows="10" placeholder="Add comment..."
+                          maxlength="300"></textarea>
+                <p id="error-message" style="color: red; font-size: 14px; display: none;"></p>
+                <button type="submit" class="submit-comment">Submit</button>
             </form>
         </div>
     </div>
+
+    <script>
+        const stars = document.querySelectorAll('.star');
+        const starRatingInput = document.getElementById('star-rating');
+
+        stars.forEach((star, index) => {
+            star.addEventListener('mouseover', () => {
+                // Highlight the stars up to the hovered one
+                stars.forEach((s, i) => {
+                    if (i <= index) {
+                        s.classList.add('hovered');
+                    } else {
+                        s.classList.remove('hovered');
+                    }
+                });
+            });
+
+            star.addEventListener('mouseout', () => {
+                // Remove hover effect
+                stars.forEach((s) => s.classList.remove('hovered'));
+            });
+
+            star.addEventListener('click', () => {
+                // Set the selected rating
+                const rating = index + 1;
+                starRatingInput.value = rating;
+
+                // Highlight the stars up to the selected one
+                stars.forEach((s, i) => {
+                    if (i < rating) {
+                        s.classList.add('selected');
+                    } else {
+                        s.classList.remove('selected');
+                    }
+                });
+            });
+        });
+
+        document.getElementById('commentForm').addEventListener('submit', function (e) {
+            const commentField = document.getElementById('comment');
+            const errorMessage = document.getElementById('error-message');
+            const commentText = commentField.value.trim();
+
+
+            if (commentText.length === 0) {
+                e.preventDefault();
+                errorMessage.textContent = 'Comment cannot be empty.';
+                errorMessage.style.display = 'block';
+                commentField.focus();
+            } else if (commentText.length > 300) {
+                e.preventDefault();
+                errorMessage.textContent = 'Comment is too long. Maximum length is 300 characters.';
+                errorMessage.style.display = 'block';
+                commentField.focus();
+            } else {
+                errorMessage.style.display = 'none';
+            }
+        });
+    </script>
 
 
 {% endblock %}
