@@ -18,10 +18,38 @@
 }
 
 .profile-image {
-    width: 250px;  /* Fixed width for the image */
-    height: 250px;  /* Fixed height for the image */
-    overflow: hidden;  /* Hide any parts of the image that overflow */
+    width: 250px;
+    height: 250px;
+    overflow: hidden;
     border-radius: 10px;
+}
+
+.edit-profile-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+    color: #fff;
+    background-color: #6ebe3b;
+    border: 1px solid #6ebe3b;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s;
+    cursor: pointer;
+}
+
+.edit-profile-btn:hover {
+    background-color: #ffffff;
+    color: black;
+    border: 1px solid black;
+}
+
+.edit-profile-btn:active {
+    background-color: #477f25;
+    transform: translateY(0);
 }
 
 .profile-image img {
@@ -46,3 +74,17 @@
     display: flex;
     justify-content: center;
 }
+
+#saved-recipes-btn {
+    padding: 10px 20px;
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+    margin-top: 0;
+}
+
+.profile-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+

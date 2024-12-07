@@ -6,20 +6,32 @@
         <div class="profile-information">
             <div class="profile-image">
                 {% if user.profile.profile_picture %}
-                    <img src="{{ user.profile.profile_picture }}" alt="">
+                    <img src="{{ user.profile.profile_picture.url }}" alt="">
                 {% else %}
                     <img src="{% static 'images/profile_pic.jpg' %}" alt="">
                 {% endif %}
             </div>
 
             <div class="personal-information">
-                <h2>{{ user.profile.get_full_name }}</h2>
-                <p>0 published recipes</p>
-                {% if user.pk == request.user.pk %}
-                    <p>0 saved recipes</p>
-                {% endif %}
+                <div class="profile-info">
+                    <h2>{{ user.profile.get_full_name }}</h2>
+                    <p>{{ user.profile.bio }}</p>
+                </div>
+                <div class="profile-stats">
+                    <p>{{ user.recipes.count }} published recipes</p>
+                    {% if user.pk == request.user.pk %}
+                        <p>{{ user.favourites.count }} saved recipes</p>
+                    {% endif %}
+                </div>
+            </div>
 
-                <a href="{% url 'user-saved-recipes' request.user.pk %}" id="saved-recipes-btn"><i class="fa-regular fa-bookmark"></i> Saved recipes</a>
+            <div class="profile-controls">
+                <a href="{% url 'user-saved-recipes' request.user.pk %}" id="saved-recipes-btn"><i
+                        class="fa-regular fa-bookmark"></i> Saved recipes</a>
+
+                {% if user.pk == request.user.pk %}
+                    <a href="{% url 'edit-profile' request.user.pk %}" class="edit-profile-btn">Edit Profile</a>
+                {% endif %}
             </div>
         </div>
     </div>

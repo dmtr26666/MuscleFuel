@@ -2,10 +2,11 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, ListView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from django_filters.views import FilterView
 
-from MuscleFuel.accounts.forms import CustomUserCreationForm
+from MuscleFuel.accounts.forms import CustomUserCreationForm, ProfileEditForm
+from MuscleFuel.accounts.models import Profile
 from MuscleFuel.recipes.filters import RecipeFilter
 from MuscleFuel.recipes.models import Recipe
 
@@ -53,3 +54,14 @@ class SavedRecipesView(LoginRequiredMixin, FilterView, ListView):
         context['saved_recipes_filter'] = True
 
         return context
+
+class ProfileEditView(LoginRequiredMixin, UpdateView):
+    model = Profile
+    form_class = ProfileEditForm
+    template_name = 'accounts/profile-edit.html'
+
+    def get_success_url(self):
+        return self.request.user.profile.get_absolute_url()
+
+    def get_object(self, queryset=None):
+        return self.request.user.profile

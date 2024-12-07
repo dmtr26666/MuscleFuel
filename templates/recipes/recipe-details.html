@@ -118,7 +118,7 @@
                     <li>
                         <div class="avatar">
                             <a href="{% url 'profile-details' comment.user.pk %}"><img
-                                    src="{{ comment.user.profile.profile_picture }}" alt="avatar"/></a>
+                                    src="{{ comment.user.profile.profile_picture.url }}" alt="avatar"/></a>
                         </div>
                         <div class="comment">
                             <h5>

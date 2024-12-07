@@ -1,3 +1,4 @@
+from cloudinary.forms import CloudinaryFileField
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
@@ -19,6 +20,11 @@ class CustomUserCreationForm(UserCreationForm):
 
 
 class ProfileEditForm(forms.ModelForm):
+    profile_picture = CloudinaryFileField(
+        required=False,
+        widget=forms.FileInput(attrs={'accept': 'image/*'})
+    )
+
     class Meta:
         model = Profile
         exclude = ('user', )
