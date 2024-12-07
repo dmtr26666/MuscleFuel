@@ -54,17 +54,22 @@
 
 
                 <p>{{ recipe.description }}</p>
-                <form method="post" action="{% url 'toggle-favourite' recipe.pk %}" class="favorite-form">
-                    {% csrf_token %}
-                    {% if recipe.is_saved %}
-                        <button type="submit" id="save-recipe-btn"><i class="fa-solid fa-bookmark"></i> Remove from
-                            saved
-                        </button>
-                    {% else %}
-                        <button type="submit" id="save-recipe-btn"><i class="fa-regular fa-bookmark"></i> Save recipe
-                        </button>
+                <div class="recipe-buttons">
+                    <form method="post" action="{% url 'toggle-favourite' recipe.pk %}" class="favorite-form">
+                        {% csrf_token %}
+                        {% if recipe.is_saved %}
+                            <button type="submit" id="save-recipe-btn"><i class="fa-solid fa-bookmark"></i> Remove from
+                                saved
+                            </button>
+                        {% else %}
+                            <button type="submit" id="save-recipe-btn"><i class="fa-regular fa-bookmark"></i> Save recipe
+                            </button>
+                        {% endif %}
+                    </form>
+                    {% if request.user == recipe.user %}
+                        <a href="{% url 'recipe-edit' recipe.pk %}" id="recipe-edit-btn">Edit recipe</a>
                     {% endif %}
-                </form>
+                </div>
             </div>
         </div>
     </section>

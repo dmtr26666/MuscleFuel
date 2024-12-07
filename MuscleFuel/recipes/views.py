@@ -5,11 +5,11 @@ from django.db.transaction import commit
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import ListView, DetailView, FormView, CreateView
+from django.views.generic import ListView, DetailView, FormView, CreateView, UpdateView
 from django_filters.views import FilterView
 
 from MuscleFuel.recipes.filters import RecipeFilter
-from MuscleFuel.recipes.forms import ReviewForm, RecipeCreationForm, CommentForm
+from MuscleFuel.recipes.forms import ReviewForm, RecipeCreationForm, CommentForm, RecipeEditForm
 from MuscleFuel.recipes.models import Recipe, Review, SavedRecipe
 
 
@@ -88,7 +88,7 @@ class RecipeReviewSubmit(LoginRequiredMixin, View):
 class RecipeAddView(LoginRequiredMixin, CreateView):
     model = Recipe
     form_class = RecipeCreationForm
-    template_name = 'recipes/recipe-create.html'
+    template_name = 'recipes/recipe-create-edit.html'
 
     def get_success_url(self):
         return reverse_lazy('recipe-details', kwargs={'pk': self.object.pk})
@@ -99,6 +99,21 @@ class RecipeAddView(LoginRequiredMixin, CreateView):
 
         return super().form_valid(form)
 
+
+class RecipeEditView(LoginRequiredMixin, UpdateView):
+    model = Recipe
+    form_class = RecipeEditForm
+    template_name = 'recipes/recipe-create-edit.html'
+
+    def get_success_url(self):
+        return reverse_lazy('recipe-details', kwargs={'pk': self.object.pk})
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['is_editing'] = True
+
+        return context
 
 @login_required
 def toggle_favorite(request, pk):
