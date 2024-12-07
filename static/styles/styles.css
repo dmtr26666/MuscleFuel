@@ -431,7 +431,7 @@ div.footer {
     display: flex;
     flex-direction: column;
     gap: 14px;
-    align-items: center;
+    align-items: flex-start;
     border: 1px solid #ddd;
     border-radius: 6px;
     max-width: 600px;

@@ -50,17 +50,30 @@
                     </div>
                 {% endif %}
             </div>
+            <div class="form-group">
+                {{ form.goal.label_tag }}
+                {{ form.goal }}
+                {% if form.goal.errors %}
+                    <div class="text-danger">
+                        {{ form.goal.errors|join:", " }}
+                    </div>
+                {% endif %}
+            </div>
         </div>
         <button type="submit" class="submit-button">Calculate</button>
     </form>
 
     {% if result %}
         <div class="calorie-calculator-results">
-            <h3>Results</h3>
-            <p><strong>To Maintain Weight:</strong> {{ result.maintain_weight }} kcal/day</p>
-            <p><strong>To Lose Weight (500 kcal deficit):</strong> {{ result.lose_weight }} kcal/day</p>
-            <p><strong>To Gain Weight (500 kcal surplus):</strong> {{ result.gain_weight }} kcal/day</p>
+            <h3>Results for {{ result.goal }} goal</h3>
             <p><strong>Your BMR (Basal Metabolic Rate):</strong> {{ result.bmr }} kcal/day</p>
+            <p><strong>Your Daily calories:</strong> {{ result.tdee }} kcal/day</p>
+            <p><strong>Macronutrients:</strong></p>
+            <ul>
+                <li>Protein: {{ result.protein2 }} - {{ result.protein1 }} g/day</li>
+                <li>Carbohydrates: {{ result.carbs }} g/day</li>
+                <li>Fats: {{ result.fats }} g/day</li>
+            </ul>
         </div>
     {% endif %}
 {% endblock %}

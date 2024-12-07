@@ -33,6 +33,7 @@ def calories_calculator_funtionality(request):
             height = form.cleaned_data['height']
             gender = form.cleaned_data['gender']
             activity_level = float(form.cleaned_data['activity_level'])
+            goal = form.cleaned_data['goal']
 
             # Calculate BMR
             if gender == 'male':
@@ -43,12 +44,29 @@ def calories_calculator_funtionality(request):
             # Calculate TDEE
             tdee = bmr * activity_level
 
+            if goal == 'gain':
+                tdee += 400  # Calorie surplus for muscle gain
+                macros_ratio = {'protein': 0.3, 'carbs': 0.4, 'fats': 0.3}
+            elif goal == 'lose':
+                tdee -= 400  # Calorie deficit for fat loss
+                macros_ratio = {'protein': 0.35, 'carbs': 0.35, 'fats': 0.3}
+            else:
+                macros_ratio = {'protein': 0.3, 'carbs': 0.4, 'fats': 0.3}
+
+            # Calculate macronutrient grams
+            protein_grams_1 = (tdee * macros_ratio['protein']) / 4
+            protein_grams_2 = weight * 2.2
+            carbs_grams = (tdee * macros_ratio['carbs']) / 4
+            fats_grams = (tdee * macros_ratio['fats']) / 9
+
             result = {
                 'bmr': round(bmr, 2),
                 'tdee': round(tdee, 2),
-                'gain_weight': round(tdee + 500, 2),
-                'lose_weight': round(tdee - 500, 2),
-                'maintain_weight': round(tdee, 2),
+                'goal': goal.title(),
+                'protein1': round(protein_grams_1, 2),
+                'protein2': round(protein_grams_2, 2),
+                'carbs': round(carbs_grams, 2),
+                'fats': round(fats_grams, 2),
             }
     else:
         form = CalorieCalculatorForm()
