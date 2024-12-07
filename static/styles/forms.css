@@ -4,15 +4,15 @@ h1 {
 }
 
 /* Style the form and its fields */
-.login-register-form, .recipe-add-form, .edit-profile-form {
+.login-register-form, .recipe-add-form, .edit-profile-form, .calorie-calculator-form {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
 }
 
-.edit-profile-form {
-    margin-top: 50px;
+.edit-profile-form, .calorie-calculator-form {
+    margin-top: 35px;
 }
 
 input:focus {
@@ -99,7 +99,7 @@ input:focus {
     background-color: #fff;
 }
 
-.form-section h3 {
+.form-section h3, .calorie-calculator-results h3 {
     font-size: 1.2em;
     margin-bottom: 10px;
     color: #333;

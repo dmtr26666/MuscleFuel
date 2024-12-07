@@ -1,0 +1,66 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+    <form method="post" class="calorie-calculator-form">
+        {% csrf_token %}
+        <div class="form-section">
+            <h3>Calorie calculator</h3>
+            <div class="form-group">
+                {{ form.age.label_tag }}
+                {{ form.age }}
+                {% if form.age.errors %}
+                    <div class="text-danger">
+                        {{ form.age.errors|join:", " }}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.weight.label_tag }}
+                {{ form.weight }}
+                {% if form.weight.errors %}
+                    <div class="text-danger">
+                        {{ form.weight.errors|join:", " }}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.height.label_tag }}
+                {{ form.height }}
+                {% if form.height.errors %}
+                    <div class="text-danger">
+                        {{ form.height.errors|join:", " }}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.gender.label_tag }}
+                {{ form.gender }}
+                {% if form.gender.errors %}
+                    <div class="text-danger">
+                        {{ form.gender.errors|join:", " }}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.activity_level.label_tag }}
+                {{ form.activity_level }}
+                {% if form.activity_level.errors %}
+                    <div class="text-danger">
+                        {{ form.activity_level.errors|join:", " }}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <button type="submit" class="submit-button">Calculate</button>
+    </form>
+
+    {% if result %}
+        <div class="calorie-calculator-results">
+            <h3>Results</h3>
+            <p><strong>To Maintain Weight:</strong> {{ result.maintain_weight }} kcal/day</p>
+            <p><strong>To Lose Weight (500 kcal deficit):</strong> {{ result.lose_weight }} kcal/day</p>
+            <p><strong>To Gain Weight (500 kcal surplus):</strong> {{ result.gain_weight }} kcal/day</p>
+            <p><strong>Your BMR (Basal Metabolic Rate):</strong> {{ result.bmr }} kcal/day</p>
+        </div>
+    {% endif %}
+{% endblock %}

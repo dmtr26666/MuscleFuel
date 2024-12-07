@@ -427,6 +427,18 @@ div.footer {
     fill: #6ebe3b;
 }
 
+.calorie-calculator-results {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 25px 35px;
+}
+
 
 
 
