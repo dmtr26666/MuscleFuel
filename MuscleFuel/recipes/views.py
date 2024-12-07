@@ -58,9 +58,8 @@ class RecipeDetailsView(DetailView):
         user_review = None
         if self.request.user.is_authenticated:
             user_review = self.object.review_set.filter(user=self.request.user).first()
-        context['user_review'] = user_review
-
-        self.object.is_saved = self.object.favourited_by.filter(user=self.request.user).exists()
+            self.object.is_saved = self.object.favourited_by.filter(user=self.request.user).exists()
+            context['user_review'] = user_review
 
         context['comments'] = self.object.comments.all()
 

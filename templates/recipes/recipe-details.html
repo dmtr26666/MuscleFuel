@@ -103,7 +103,7 @@
                 {% endfor %}
             </div>
 
-            <form id="review-form" method="post" action="{% url 'submit-review' %}">
+            <form id="review-form" method="post" action="{% url 'submit-review' recipe.pk %}">
                 {% csrf_token %}
                 <input type="hidden" id="star-rating" name="rating" value="0">
                 <input type="hidden" name="recipe_id" value="{{ recipe.id }}">

@@ -24,7 +24,7 @@ class CustomUserRegistrationView(CreateView):
     success_url = reverse_lazy('index')
 
 
-class ProfileDetailsView(LoginRequiredMixin, DetailView):
+class ProfileDetailsView(DetailView):
     model = UserModel
     template_name = 'accounts/profile-details.html'
     context_object_name = 'user'

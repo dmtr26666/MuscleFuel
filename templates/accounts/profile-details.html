@@ -26,10 +26,9 @@
             </div>
 
             <div class="profile-controls">
-                <a href="{% url 'user-saved-recipes' request.user.pk %}" id="saved-recipes-btn"><i
-                        class="fa-regular fa-bookmark"></i> Saved recipes</a>
-
-                {% if user.pk == request.user.pk %}
+                {% if request.user.pk == user.pk %}
+                    <a href="{% url 'user-saved-recipes' request.user.pk %}" id="saved-recipes-btn"><i
+                            class="fa-regular fa-bookmark"></i> Saved recipes</a>
                     <a href="{% url 'edit-profile' request.user.pk %}" class="edit-profile-btn">Edit Profile</a>
                 {% endif %}
             </div>
