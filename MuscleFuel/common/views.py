@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.views.generic import TemplateView, DetailView
 
 from MuscleFuel.common.forms import CalorieCalculatorForm
-from MuscleFuel.recipes.models import Category
+from MuscleFuel.recipes.models import Category, Recipe
 
 
 # Create your views here.
@@ -18,6 +18,8 @@ class IndexView(TemplateView):
         context['lunch_id'] = Category.objects.filter(category__iexact='lunch').first().id
         context['dinner_id'] = Category.objects.filter(category__iexact='dinner').first().id
         context['snack_id'] = Category.objects.filter(category__iexact='snack').first().id
+
+        context['all_recipes'] = Recipe.objects.all()[:10]
 
         return context
 

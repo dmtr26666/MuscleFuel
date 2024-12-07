@@ -45,8 +45,7 @@ class RecipeDetailsView(DetailView):
         context['fat_percentage'] = (context['recipe'].fat / total_macros) * 100 if total_macros else 0
         context['calories_percentage'] = (context['recipe'].calories / (context['recipe'].calories * 1.5)) * 100
 
-        average_rating = self.object.review_set.aggregate(average=Avg('rating'))['average']
-        context['average_rating'] = average_rating or 0
+        context['average_rating'] = self.object.get_average_rating()
 
         raw_ingredients_list = context['recipe'].ingredients.split(',')
 

@@ -176,27 +176,59 @@ div.footer {
     font-family: inherit;
 }
 
-.slick-slider {
-    margin-bottom: 0;
-}
-
-.custom-margin {
-    margin-bottom: 0;
-}
-
 .slider-box {
     display: flex;
+    justify-content: center;
 }
 
+
 .slider-left {
-    width: 66%;
+    width: 40%;
     height: 523px;
     position: relative;
 }
 
-.slider-left img {
+#image-slider {
+    position: relative;
     width: 100%;
+    height: 100%;
+    overflow: hidden;
 }
+
+#image-slider .slide {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: 100%;
+    height: 100%;
+    transition: left 0.8s ease-in-out, opacity 0.8s ease-in-out;
+    opacity: 0;
+    z-index: 0;
+}
+#image-slider .slide.active {
+    left: 0;
+    opacity: 1;
+    z-index: 1;
+}
+#image-slider .slide.previous {
+    left: -100%; /* Move off-screen to the left */
+    opacity: 0; /* Fade out */
+    z-index: 0; /* Behind the active slide */
+}
+
+#image-slider img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.slider-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
 
 .custom-arrows {
     display: table;
@@ -204,6 +236,7 @@ div.footer {
     top: 50%;
     margin-top: -32px;
     left: -39px;
+    z-index: 2;
 }
 
 .custom-arrows span {
@@ -230,7 +263,7 @@ div.footer {
     height: 523px;
     overflow: hidden;
     position: relative;
-    width: 34%;
+    width: 50%;
     background: #ddecf3;
 }
 
@@ -243,8 +276,22 @@ div.footer {
 }
 
 .wrapper-home-slider .container {
-    max-width: 1260px;
+    max-width: 860px;
     margin: 0 auto;
+}
+
+.slide-detail-content {
+    padding: 45px 30px 62px 30px;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+.slide-detail-content.active {
+    opacity: 1;
+    position: relative; /* Ensures active content shows */
 }
 
 .wrapper-home-slider h2 {
@@ -437,6 +484,11 @@ div.footer {
     max-width: 600px;
     margin: 30px auto;
     padding: 25px 35px;
+}
+
+#image-slider {
+    width: 100%;
+    height: 100%;
 }
 
 

@@ -1,6 +1,7 @@
 from cloudinary.models import CloudinaryField
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.db.models import Avg
 from django.utils.text import slugify
 
 UserModel = get_user_model()
@@ -53,6 +54,12 @@ class Recipe(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
+
+    def get_average_rating(self):
+        average_rating = self.review_set.aggregate(average=Avg('rating'))['average']
+
+        return average_rating or 0
+
 
 class Review(models.Model):
     rating = models.PositiveIntegerField(null=False, blank=False)
