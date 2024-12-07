@@ -20,7 +20,7 @@ class CustomUserCreationForm(UserCreationForm):
 
 
 class ProfileEditForm(forms.ModelForm):
-    profile_picture = CloudinaryFileField(
+    profile_picture = forms.ImageField(
         required=False,
         widget=forms.FileInput(attrs={'accept': 'image/*'})
     )
