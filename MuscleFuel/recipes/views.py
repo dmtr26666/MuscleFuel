@@ -26,6 +26,12 @@ class BaseRecipeListView(FilterView, ListView):
 
         if type(self).__name__ == 'SavedRecipesView':
             queryset = queryset.filter(favourited_by__user=self.request.user)
+        elif type(self).__name__ == 'ProfileDetailsView':
+            user = self.get_object()
+
+            queryset = queryset.filter(user=user)
+            if self.request.user != user:
+                queryset = queryset.filter(is_public=True)
         else:
             queryset = queryset.filter(is_public=True)
 

@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, UpdateView
 
@@ -22,11 +23,19 @@ class CustomUserRegistrationView(CreateView):
     success_url = reverse_lazy('index')
 
 
-class ProfileDetailsView(DetailView):
-    model = UserModel
+class ProfileDetailsView(BaseRecipeListView):
     template_name = 'accounts/profile-details.html'
-    context_object_name = 'user'
 
+    def get_object(self):
+        user = get_object_or_404(UserModel, pk=self.kwargs['pk'])
+
+        return user
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user'] = self.get_object()
+        context['user_public_recipes_count'] = self.get_object().recipes.filter(is_public=True).count()
+        return context
 
 class SavedRecipesView(LoginRequiredMixin, BaseRecipeListView):
     template_name = 'accounts/saved-recipes.html'

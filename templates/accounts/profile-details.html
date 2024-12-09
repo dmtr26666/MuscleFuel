@@ -18,10 +18,6 @@
                     <p>{{ user.profile.bio }}</p>
                 </div>
                 <div class="profile-stats">
-                    <p>{{ user.recipes.count }} published recipes</p>
-                    {% if user.pk == request.user.pk %}
-                        <p>{{ user.favourites.count }} saved recipes</p>
-                    {% endif %}
                 </div>
             </div>
 
@@ -34,4 +30,8 @@
             </div>
         </div>
     </div>
+    <div class="saved-recipe-title">
+        <h2>Published recipes ({{ user_public_recipes_count }})</h2>
+    </div>
+    {% include 'recipes/recipes-list-element.html' %}
 {% endblock %}
