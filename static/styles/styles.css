@@ -4,6 +4,27 @@
 @import './forms.css';
 @import './profile-details.css';
 
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Main wrapper to grow and push the footer */
+.wrapper {
+    flex: 1; /* Makes the wrapper grow to fill available space */
+}
+
+/* Footer styling */
+.footer {
+    background-color: #333; /* Example background color */
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 14px;
+    margin-top: auto; /* Pushes footer to bottom */
+}
 * {
     margin: 0;
     padding: 0;
@@ -119,28 +140,6 @@ body {
 .view-all:hover {
     background-color: #000;
 }
-
-div.footer {
-    position: sticky;
-    bottom: 0;
-    margin: 20px auto;
-    width: 100%;
-    text-align: center;
-    z-index: -2;
-}
-
-.footer .footer-section {
-    position: relative;
-    width: 100%;
-    font-size: 12px;
-    font-family: sans-serif;
-    z-index: -2;
-}
-
-.footer a:hover {
-    color: #ff0000;
-}
-
 .login-register-div {
     margin-top: 30px;
     display: flex;
@@ -273,6 +272,7 @@ div.footer {
 
 .wrapper-home-slider {
     margin-bottom: 30px;
+    margin-top: 30px;
 }
 
 .wrapper-home-slider .container {
@@ -490,6 +490,8 @@ div.footer {
     width: 100%;
     height: 100%;
 }
+
+
 
 
 

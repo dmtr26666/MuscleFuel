@@ -56,14 +56,14 @@ class Recipe(models.Model):
         super().save(*args, **kwargs)
 
     def get_average_rating(self):
-        average_rating = self.review_set.aggregate(average=Avg('rating'))['average']
+        average_rating = self.reviews.aggregate(average=Avg('rating'))['average']
 
         return average_rating or 0
 
 
 class Review(models.Model):
     rating = models.PositiveIntegerField(null=False, blank=False)
-    to_recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    to_recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='reviews')
     user = models.ForeignKey(UserModel, on_delete=models.CASCADE, related_name='reviews')
     created_at = models.DateTimeField(auto_now_add=True)
 

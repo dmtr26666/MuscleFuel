@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="saved-recipe-title">
-        <h2>{{ request.user.profile.get_full_name }}'s saved recipes</h2>
+        <h2>Your saved recipes</h2>
     </div>
 
 	{% include 'recipes/recipes-list-element.html' with filter=filter %}

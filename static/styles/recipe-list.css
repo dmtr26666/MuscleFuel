@@ -168,3 +168,58 @@
 .filter-button:hover {
     background-color: #45a049;
 }
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.pagination .btn {
+    display: inline-block;
+    padding: 8px 12px;
+    border: 1px solid #007bff;
+    border-radius: 3px;
+    color: #007bff;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination .btn:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.pagination .btn.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+    border-color: #ccc;
+    color: #ccc;
+}
+
+.pagination .page-info {
+    font-size: 14px;
+    color: #333;
+}
+
+.sorting-dropdown {
+    margin: 10px 0 20px 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sorting-dropdown label {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.sorting-dropdown select {
+    padding: 5px 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}

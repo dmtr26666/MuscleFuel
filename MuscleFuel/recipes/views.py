@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Avg
+from django.db.models import Avg, Value
+from django.db.models.functions import Coalesce
 from django.db.transaction import commit
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
@@ -10,26 +11,18 @@ from django_filters.views import FilterView
 
 from MuscleFuel.recipes.filters import RecipeFilter
 from MuscleFuel.recipes.forms import ReviewForm, RecipeCreationForm, CommentForm, RecipeEditForm
+from MuscleFuel.recipes.mixins import RecipeListMixin
 from MuscleFuel.recipes.models import Recipe, Review, SavedRecipe
 
 
 # Create your views here.
-class RecipesListView(FilterView, ListView):
+class RecipesListView(RecipeListMixin, FilterView, ListView):
     model = Recipe
     template_name = 'recipes/recipes-list.html'
     context_object_name = 'recipes'
     filterset_class = RecipeFilter
     paginate_by = 12
 
-    def get_queryset(self):
-        queryset = super().get_queryset()
-
-        query = self.request.GET.get('q')
-
-        if query:
-            queryset.filter(title__icontains=query)
-
-        return queryset.order_by('-created_at').filter(is_public=True)
 
 class RecipeDetailsView(DetailView):
     model = Recipe
@@ -56,7 +49,7 @@ class RecipeDetailsView(DetailView):
 
         user_review = None
         if self.request.user.is_authenticated:
-            user_review = self.object.review_set.filter(user=self.request.user).first()
+            user_review = self.object.reviews.filter(user=self.request.user).first()
             self.object.is_saved = self.object.favourited_by.filter(user=self.request.user).exists()
             context['user_review'] = user_review
 

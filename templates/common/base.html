@@ -2,41 +2,42 @@
 
 <!doctype html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MuscleFuel - Protein Recipes</title>
-
-    <!-- FONTS -->
-    <link href="https://fonts.googleapis.com/css2?family=Nothing+You+Could+Do&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
-          rel="stylesheet">
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-          integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{% static 'styles/styles.css' %}">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>MuscleFuel - Protein Recipes</title>
     
-    <!-- Fav icon -->
-    <link rel="icon" type="image/png" href="{% static 'images/musclefuel_ico/favicon-32x32.png' %}">
-</head>
-
-<body>
-<header>
-    {% include 'common/navbar.html' %}
-</header>
-
-
-<main>
-    {% block content %}
-    {% endblock %}
-</main>
-
-<div class="footer">
+        <!-- FONTS -->
+        <link href="https://fonts.googleapis.com/css2?family=Nothing+You+Could+Do&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+              rel="stylesheet">
+        <!-- FontAwesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+              integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+              crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="{% static 'styles/styles.css' %}">
+    
+        <!-- Fav icon -->
+        <link rel="icon" type="image/png" href="{% static 'images/musclefuel_ico/favicon-32x32.png' %}">
+    </head>
+    
+    <body>
+        <div class="wrapper">
+            <header>
+                {% include 'common/navbar.html' %}
+            </header>
+        
+        
+            <main>
+                {% block content %}
+                {% endblock %}
+            </main>
+        </div>
+        <div class="footer">
            <span class="footer-section">
               © 2024 MuscleFuel - Web app project for final exam
            </span>
-</div>
-</body>
+        </div>
+    </body>
 </html>

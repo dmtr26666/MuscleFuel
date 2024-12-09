@@ -2,6 +2,35 @@
 {% load static %}
 
 {% block content %}
+    <section class="recipesTypes">
+        <div class="recipe-header-grid">
+            <a href="{% url 'recipe-list' %}?categories={{ breakfast_id }}" class="recipe-header-card">
+                <img src="{% static 'images/breakfast.jpg' %}" alt="">
+                <p>Breakfast</p>
+            </a>
+            <a href="{% url 'recipe-list' %}?categories={{ lunch_id }}" class="recipe-header-card">
+                <img src="{% static 'images/lunch.jpg' %}" alt="">
+                <p>Lunch</p>
+            </a>
+            <a href="{% url 'recipe-list' %}?categories={{ dinner_id }}" class="recipe-header-card">
+                <img src="{% static 'images/dinner.jpg' %}" alt="">
+                <p>Dinner</p>
+            </a>
+            <a href="{% url 'recipe-list' %}?categories={{ snack_id }}" class="recipe-header-card">
+                <img src="{% static 'images/snack.png' %}" alt="">
+                <p>Snack</p>
+            </a>
+        </div>
+        <div class="search-bar">
+            <form action="{% url 'recipe-list' %}" method="get">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Search a recipe" name="q">
+                <button type="submit" style="display: none;">Submit</button>
+            </form>
+            <span id="or">or</span>
+            <a href="{% url 'recipe-list' %}" class="view-all">View All Recipes</a>
+        </div>
+    </section>
     <section class="wrapper-home-slider variation-one">
         <div class="container">
             <div class="home-slider">
@@ -52,35 +81,6 @@
             </div>
         </div>
 
-    </section>
-    <section class="recipesTypes">
-        <div class="recipe-header-grid">
-            <a href="{% url 'recipe-list' %}?categories={{ breakfast_id }}" class="recipe-header-card">
-                <img src="{% static 'images/breakfast.jpg' %}" alt="">
-                <p>Breakfast</p>
-            </a>
-            <a href="{% url 'recipe-list' %}?categories={{ lunch_id }}" class="recipe-header-card">
-                <img src="{% static 'images/lunch.jpg' %}" alt="">
-                <p>Lunch</p>
-            </a>
-            <a href="{% url 'recipe-list' %}?categories={{ dinner_id }}" class="recipe-header-card">
-                <img src="{% static 'images/dinner.jpg' %}" alt="">
-                <p>Dinner</p>
-            </a>
-            <a href="{% url 'recipe-list' %}?categories={{ snack_id }}" class="recipe-header-card">
-                <img src="{% static 'images/snack.png' %}" alt="">
-                <p>Snack</p>
-            </a>
-        </div>
-        <div class="search-bar">
-            <form action="{% url 'recipe-list' %}" method="get">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" placeholder="Search a recipe" name="q">
-                <button type="submit" style="display: none;">Submit</button>
-            </form>
-            <span id="or">or</span>
-            <a href="{% url 'recipe-list' %}" class="view-all">View All Recipes</a>
-        </div>
     </section>
 
     <script>
