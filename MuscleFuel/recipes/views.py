@@ -11,17 +11,54 @@ from django_filters.views import FilterView
 
 from MuscleFuel.recipes.filters import RecipeFilter
 from MuscleFuel.recipes.forms import ReviewForm, RecipeCreationForm, CommentForm, RecipeEditForm
-from MuscleFuel.recipes.mixins import RecipeListMixin
 from MuscleFuel.recipes.models import Recipe, Review, SavedRecipe
 
 
 # Create your views here.
-class RecipesListView(RecipeListMixin, FilterView, ListView):
+class BaseRecipeListView(FilterView, ListView):
     model = Recipe
-    template_name = 'recipes/recipes-list.html'
-    context_object_name = 'recipes'
-    filterset_class = RecipeFilter
     paginate_by = 12
+    filterset_class = RecipeFilter
+    context_object_name = 'recipes'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        if type(self).__name__ == 'SavedRecipesView':
+            queryset = queryset.filter(favourited_by__user=self.request.user)
+        else:
+            queryset = queryset.filter(is_public=True)
+
+        queryset = queryset.annotate(
+            average_rating=Coalesce(Avg('reviews__rating'), Value(0.0))  # Replace None with 0.0
+        )
+
+        query = self.request.GET.get('q')
+
+        if query:
+            queryset.filter(title__icontains=query)
+
+        sort_by = self.request.GET.get('sort')
+        if sort_by == 'protein_desc':
+            queryset = queryset.order_by('-protein')
+        elif sort_by == 'protein_asc':
+            queryset = queryset.order_by('protein')
+        elif sort_by == 'calories_desc':
+            queryset = queryset.order_by('-calories')
+        elif sort_by == 'calories_asc':
+            queryset = queryset.order_by('calories')
+        elif sort_by == 'rating_desc':
+            queryset = queryset.order_by('-average_rating')
+        elif sort_by == 'oldest':
+            queryset = queryset.order_by('created_at')
+        else:
+            queryset = queryset.order_by('-created_at')
+
+        return queryset
+
+
+class RecipesListView(BaseRecipeListView):
+    template_name = 'recipes/recipes-list.html'
 
 
 class RecipeDetailsView(DetailView):
