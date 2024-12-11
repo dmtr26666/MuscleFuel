@@ -489,12 +489,12 @@ a:focus {
     background-color: #7f8c8d;
 }
 
-#recipe-details-author-link {
-    color: red;
+#recipe-details-author-link, #register-link, #login-link {
+    color: mediumpurple;
     text-decoration: underline;
 }
 
-#recipe-details-author-link:hover {
+#recipe-details-author-link:hover, #register-link:hover, #login-link:hover {
     color: hotpink;
     text-decoration: underline;
 }

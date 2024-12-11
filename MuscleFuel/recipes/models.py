@@ -34,7 +34,7 @@ class Recipe(models.Model):
     description = models.TextField()
     ingredients = models.TextField(help_text='List ingredients, separated by commas.')
     instructions = models.TextField(help_text='Step-by-step preparation instructions.')
-    image = CloudinaryField('image', null=True, blank=True, folder='media/recipes')
+    image = CloudinaryField('image', null=False, blank=False, folder='media/recipes')
     cook_time = models.PositiveIntegerField(help_text='Cooking time in minutes.')
     servings = models.PositiveIntegerField()
     calories = models.PositiveIntegerField()

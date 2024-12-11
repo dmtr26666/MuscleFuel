@@ -12,20 +12,19 @@ html, body {
     scroll-behavior: smooth;
 }
 
-/* Main wrapper to grow and push the footer */
 .wrapper {
-    flex: 1; /* Makes the wrapper grow to fill available space */
+    flex: 1;
 }
 
-/* Footer styling */
 .footer {
-    background-color: #333; /* Example background color */
+    background-color: #333;
     color: #fff;
     text-align: center;
     padding: 10px 0;
     font-size: 14px;
-    margin-top: auto; /* Pushes footer to bottom */
+    margin-top: auto;
 }
+
 * {
     margin: 0;
     padding: 0;
@@ -141,6 +140,7 @@ body {
 .view-all:hover {
     background-color: #000;
 }
+
 .login-register-div {
     margin-top: 30px;
     display: flex;
@@ -205,11 +205,13 @@ body {
     opacity: 0;
     z-index: 0;
 }
+
 #image-slider .slide.active {
     left: 0;
     opacity: 1;
     z-index: 1;
 }
+
 #image-slider .slide.previous {
     left: -100%; /* Move off-screen to the left */
     opacity: 0; /* Fade out */
@@ -290,6 +292,7 @@ body {
     left: 0;
     width: 100%;
 }
+
 .slide-detail-content.active {
     opacity: 1;
     position: relative; /* Ensures active content shows */
@@ -492,6 +495,32 @@ body {
     height: 100%;
 }
 
+.error-page {
+    text-align: center;
+    padding: 50px;
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+.error-page > h1 {
+    font-size: 50px;
+    color: #ff4d4f;
+}
+
+.error-page > p {
+    font-size: 20px;
+    color: #6c757d;
+}
+
+.error-page > a {
+    color: #007bff;
+    text-decoration: none;
+    margin-top: 24px;
+}
+
+.error-page > a:hover {
+    text-decoration: underline;
+}
 
 
 
