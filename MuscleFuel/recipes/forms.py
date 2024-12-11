@@ -1,5 +1,8 @@
+from PIL import Image
+from cloudinary import CloudinaryResource
 from cloudinary.forms import CloudinaryFileField
 from django import forms
+from django.core.exceptions import ValidationError
 
 from MuscleFuel.recipes.models import Recipe, Category, Comment
 
@@ -29,6 +32,11 @@ class RecipeBaseForm(forms.ModelForm):
         label="Categories"
     )
 
+    image = CloudinaryFileField(
+        required=False,
+        widget=forms.FileInput(attrs={'accept': 'image/*'})
+    )
+
     def save(self, commit=True):
         instance = super().save(commit=False)
         if commit:
@@ -36,15 +44,35 @@ class RecipeBaseForm(forms.ModelForm):
             self.save_m2m()
         return instance
 
+    def clean_image(self):
+        image = self.cleaned_data.get('image')
+        if image:
+            if isinstance(image, CloudinaryResource):
+                return image
+
+            try:
+                img = Image.open(image)
+                img.verify()
+
+            except (IOError, SyntaxError) as e:
+                raise ValidationError("The uploaded file is not a valid image.")
+
+        return image
+
+    def clean_title(self):
+        title = self.cleaned_data.get('title')
+
+        if Recipe.objects.filter(title__iexact=title).exists():
+            raise ValidationError("A recipe with this title already exists. Please choose a different title.")
+
+        return title
+
 class RecipeCreationForm(RecipeBaseForm):
     pass
 
 
 class RecipeEditForm(RecipeBaseForm):
-    image = CloudinaryFileField(
-        required=False,
-        widget=forms.FileInput(attrs={'accept': 'image/*'})
-    )
+    pass
 
 
 class CommentForm(forms.ModelForm):

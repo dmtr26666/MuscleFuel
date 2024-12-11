@@ -74,6 +74,14 @@ class RecipeDetailsView(DetailView):
     model = Recipe
     template_name = 'recipes/recipe-details.html'
 
+    def dispatch(self, request, *args, **kwargs):
+        recipe = self.get_object()
+
+        if recipe.user != self.request.user and not recipe.is_public:
+            raise PermissionDenied("You are not authorized to view this recipe.")
+
+        return super().dispatch(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
