@@ -9,7 +9,26 @@ It provides a personalized space where users can gather and store all their cher
 
 ### Setup Tutorials
 
-- 
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/dmtr26666/VolunteerAct.git
+   ```
+2. Create a virtual environment:
+   ```sh
+    python -m venv .venv
+    ```
+3. Install requirements.txt:
+   ```sh
+   pip install -r requirements.txt
+   ```
+
+4. Configure .env file
+5. Setup postgres docker container
+6. Run the project:
+   ```sh
+   python manage.py runserver
+   ```
+
 
 ---
 
