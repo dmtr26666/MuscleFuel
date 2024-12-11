@@ -478,3 +478,13 @@ a:focus {
 .cancel-btn:hover {
     background-color: #7f8c8d;
 }
+
+#recipe-details-author-link {
+    color: red;
+    text-decoration: underline;
+}
+
+#recipe-details-author-link:hover {
+    color: hotpink;
+    text-decoration: underline;
+}

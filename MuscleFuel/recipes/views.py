@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.db.models import Avg, Value
 from django.db.models.functions import Coalesce
 from django.db.transaction import commit
@@ -144,13 +145,21 @@ class RecipeEditView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('recipe-details', kwargs={'pk': self.object.pk})
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         context['is_editing'] = True
 
         return context
+
+    def dispatch(self, request, *args, **kwargs):
+        recipe = self.get_object()
+
+        if recipe.user != self.request.user:
+            raise PermissionDenied("You are not authorized to edit this recipe.")  # Return 403 Forbidden
+
+        return super().dispatch(request, *args, **kwargs)
 
 @login_required
 def toggle_favorite(request, pk):
@@ -189,5 +198,5 @@ def recipe_delete_functionality(request, pk):
             recipe.delete()
             return redirect('recipe-list')  # Redirect to the recipe list page
         else:
-            return HttpResponseForbidden("You are not authorized to delete this recipe.")
+            raise PermissionDenied("You are not authorized to edit this recipe.")  # Return 403 Forbidden
     return redirect(reverse_lazy('recipe-list'))

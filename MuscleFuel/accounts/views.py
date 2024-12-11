@@ -1,11 +1,13 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, UpdateView
 
 from MuscleFuel.accounts.forms import CustomUserCreationForm, ProfileEditForm
+from MuscleFuel.accounts.mixins import CheckUserAuthorization
 from MuscleFuel.accounts.models import Profile
 from MuscleFuel.recipes.views import BaseRecipeListView
 
@@ -46,13 +48,18 @@ class SavedRecipesView(LoginRequiredMixin, BaseRecipeListView):
 
         return context
 
-class ProfileEditView(LoginRequiredMixin, UpdateView):
+    def dispatch(self, request, *args, **kwargs):
+        user = get_object_or_404(UserModel, pk=self.kwargs['pk'])
+
+        if user != self.request.user:
+            raise PermissionDenied("You are not authorized to edit this recipe.")  # Return 403 Forbidden
+        
+        return super().dispatch(request, *args, **kwargs)
+
+class ProfileEditView(LoginRequiredMixin, CheckUserAuthorization, UpdateView):
     model = Profile
     form_class = ProfileEditForm
     template_name = 'accounts/profile-edit.html'
 
     def get_success_url(self):
         return self.request.user.profile.get_absolute_url()
-
-    def get_object(self, queryset=None):
-        return self.request.user.profile

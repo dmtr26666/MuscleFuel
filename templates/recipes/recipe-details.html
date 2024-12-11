@@ -10,7 +10,7 @@
             </div>
             <div class="recipe-details-info">
                 <h1 id="recipe-details-title">{{ recipe.title }}</h1>
-                <p>Author: <a href="">{{ recipe.user.username }}</a></p>
+                <p>Author: <a href="{% url 'profile-details' recipe.user.pk %}" id="recipe-details-author-link">{{ recipe.user.username }}</a></p>
                 <div class="average_rating">
                     {% if average_rating != 0 %}
                         <p><i class="fa fa-star star selected"></i>{{ average_rating }} average rating</p>
