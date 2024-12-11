@@ -3,10 +3,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Avg, Value
 from django.db.models.functions import Coalesce
 from django.db.transaction import commit
+from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import ListView, DetailView, FormView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, FormView, CreateView, UpdateView, DeleteView
 from django_filters.views import FilterView
 
 from MuscleFuel.recipes.filters import RecipeFilter
@@ -177,3 +178,16 @@ def comment_functionality(request, pk):
             comment.save()
 
     return redirect('recipe-details', pk=pk)
+
+
+@login_required
+def recipe_delete_functionality(request, pk):
+    if request.method == 'POST':
+        recipe = get_object_or_404(Recipe, pk=pk)
+
+        if request.user == recipe.user or request.user.is_staff:
+            recipe.delete()
+            return redirect('recipe-list')  # Redirect to the recipe list page
+        else:
+            return HttpResponseForbidden("You are not authorized to delete this recipe.")
+    return redirect(reverse_lazy('recipe-list'))

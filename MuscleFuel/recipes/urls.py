@@ -11,6 +11,7 @@ urlpatterns = [
         path('toggle-favourite/', views.toggle_favorite, name='toggle-favourite'),
         path('submit-comment/', views.comment_functionality, name='submit-comment'),
         path('edit-recipe/', views.RecipeEditView.as_view(), name='recipe-edit'),
+        path('delete-recipe/', views.recipe_delete_functionality, name='recipe-delete'),
     ])),
     path('add-recipe/', views.RecipeAddView.as_view(), name='recipe-add')
 ]
