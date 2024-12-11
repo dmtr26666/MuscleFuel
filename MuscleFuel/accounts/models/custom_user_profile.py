@@ -10,7 +10,7 @@ class Profile(models.Model):
     first_name = models.CharField(max_length=50, blank=True, null=True)
     last_name = models.CharField(max_length=50, blank=True, null=True)
     profile_picture = CloudinaryField('image', null=True, blank=True, folder='media/profile_pics')
-    bio = models.TextField(max_length=500, blank=True)
+    bio = models.TextField(max_length=250, blank=True)
     location = models.CharField(max_length=100, blank=True)
 
     def get_full_name(self):
