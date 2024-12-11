@@ -4,7 +4,7 @@ from django.core.exceptions import PermissionDenied
 from django.db.models import Avg, Value
 from django.db.models.functions import Coalesce
 from django.db.transaction import commit
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views import View
@@ -14,7 +14,7 @@ from django_filters.views import FilterView
 from MuscleFuel.recipes.filters import RecipeFilter
 from MuscleFuel.recipes.forms import ReviewForm, RecipeCreationForm, CommentForm, RecipeEditForm
 from MuscleFuel.recipes.mixins import RecipePermissionMixin
-from MuscleFuel.recipes.models import Recipe, Review, SavedRecipe
+from MuscleFuel.recipes.models import Recipe, Review, SavedRecipe, Comment
 
 
 # Create your views here.
@@ -188,7 +188,8 @@ def comment_functionality(request, pk):
             comment.user = request.user
             comment.save()
 
-    return redirect('recipe-details', pk=pk)
+    url = reverse_lazy('recipe-details', kwargs={'pk': pk}) + '#comments'
+    return HttpResponseRedirect(url)
 
 
 @login_required
@@ -202,3 +203,21 @@ def recipe_delete_functionality(request, pk):
         else:
             raise PermissionDenied("You are not authorized to edit this recipe.")  # Return 403 Forbidden
     return redirect(reverse_lazy('recipe-list'))
+
+@login_required
+def comment_delete_functionality(request, pk, comment_pk):
+    """
+    :param comment_pk: This param is the comment pk
+    :param pk: This param is the recipe pk
+    """
+
+    if request.method == 'POST':
+        comment = get_object_or_404(Comment, pk=comment_pk)
+
+        if request.user == comment.user or request.user.is_staff or request.user.groups.filter(name='Moderator').exists():
+            comment.delete()
+        else:
+            raise PermissionDenied("You are not authorized to delete this comment.")  # Return 403 Forbidden
+
+    url = reverse_lazy('recipe-details', kwargs={'pk': pk}) + '#comments'
+    return HttpResponseRedirect(url)

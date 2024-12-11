@@ -10,7 +10,8 @@
             </div>
             <div class="recipe-details-info">
                 <h1 id="recipe-details-title">{{ recipe.title }}</h1>
-                <p>Author: <a href="{% url 'profile-details' recipe.user.pk %}" id="recipe-details-author-link">{{ recipe.user.username }}</a></p>
+                <p>Author: <a href="{% url 'profile-details' recipe.user.pk %}"
+                              id="recipe-details-author-link">{{ recipe.user.username }}</a></p>
                 <div class="average_rating">
                     {% if average_rating != 0 %}
                         <p><i class="fa fa-star star selected"></i>{{ average_rating }} average rating</p>
@@ -70,18 +71,22 @@
                     {% if request.user == recipe.user or user_is_moderator or request.user.is_superuser %}
                         <a href="{% url 'recipe-edit' recipe.pk %}" id="recipe-edit-btn">Edit recipe</a>
                         <form method="post" action="{% url 'recipe-delete' recipe.pk %}"
-                              id="delete-form-{{ recipe.pk }}">
+                              id="modal-form-recipe-{{ recipe.pk }}">
                             {% csrf_token %}
-                            <button type="button" id="delete-recipe-btn" onclick="showDeleteModal({{ recipe.pk }})">
+                            <button type="button" id="delete-recipe-btn"
+                                    onclick="showDeleteModal('recipe-{{ recipe.pk }}', 'deleteRecipeModal')">
                                 Delete recipe
                             </button>
                         </form>
-                        <div id="deleteModal" class="modal">
+                        <div id="deleteRecipeModal" class="modal">
                             <div class="modal-content">
                                 <p id="modal-text">Are you sure you want to delete this recipe?</p>
                                 <div class="modal-buttons">
-                                    <button onclick="confirmDelete()" class="confirm-btn">Yes, Delete</button>
-                                    <button onclick="closeDeleteModal()" class="cancel-btn">Cancel</button>
+                                    <button onclick="confirmDelete('deleteRecipeModal')" class="confirm-btn">Yes,
+                                        Delete
+                                    </button>
+                                    <button onclick="closeDeleteModal('deleteRecipeModal')" class="cancel-btn">Cancel
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -133,21 +138,51 @@
             </form>
         {% endif %}
 
-        <div class="recipe-comments">
+        <div class="recipe-comments" id="comments">
             <h3 class="lined">Comments ({{ comments|length }})</h3>
             <ul>
                 {% for comment in comments %}
                     <li>
                         <div class="avatar">
                             <a href="{% url 'profile-details' comment.user.pk %}"><img
-                                    src="{{ comment.user.profile.profile_picture.url }}" alt="avatar"/></a>
+                                    src="
+
+                                            {% if comment.user.profile.profile_picture.url %}{{ comment.user.profile.profile_picture.url }}{% else %}{% static 'images/profile_pic.jpg' %}{% endif %}"
+                                    alt="avatar"/></a>
                         </div>
                         <div class="comment">
-                            <h5>
-                                <a href="{% url 'profile-details' comment.user.pk %}">{{ comment.user.profile.get_full_name }}</a>
-                            </h5>
-                            <span class="time">{{ comment.date_time_of_publication|timesince }} ago</span>
-                            <p>{{ comment.text }}</p>
+                            <div class="comment-content">
+                                <h5>
+                                    <a href="{% url 'profile-details' comment.user.pk %}">{{ comment.user.profile.get_full_name }}</a>
+                                </h5>
+                                <span class="time">{{ comment.date_time_of_publication|timesince }} ago</span>
+                                <p>{{ comment.text }}</p>
+                            </div>
+                            {% if request.user == comment.user or user_is_moderator or request.user.is_superuser %}
+                                <div class="comment-actions">
+                                    <form method="post" action="{% url 'comment-delete' pk=recipe.pk comment_pk=comment.pk %}"
+                                          id="modal-form-comment-delete-{{ comment.pk }}">
+                                        {% csrf_token %}
+                                        <button type="button" id="delete-comment-btn"
+                                                onclick="showDeleteModal('comment-delete-{{ comment.pk }}', 'deleteCommentModal')">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            {% endif %}
+                            <div id="deleteCommentModal" class="modal">
+                                <div class="modal-content">
+                                    <p id="modal-text">Are you sure you want to delete this comment?</p>
+                                    <div class="modal-buttons">
+                                        <button onclick="confirmDelete('deleteCommentModal')" class="confirm-btn">Yes,
+                                            Delete
+                                        </button>
+                                        <button onclick="closeDeleteModal('deleteCommentModal')" class="cancel-btn">
+                                            Cancel
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </li>
                 {% endfor %}
@@ -191,7 +226,7 @@
             star.addEventListener('click', () => {
                 // Set the selected rating
                 const rating = index + 1;
-                starRatingInput.value = rating;
+                starRatingInput.value = rating - 1;
 
                 // Highlight the stars up to the selected one
                 stars.forEach((s, i) => {
@@ -227,20 +262,20 @@
 
         let formToSubmit = null;
 
-        function showDeleteModal(recipeId) {
-            formToSubmit = document.getElementById(`delete-form-${recipeId}`);
-            document.getElementById('deleteModal').style.display = 'flex';
+        function showDeleteModal(modalFormId, modalId) {
+            formToSubmit = document.getElementById(`modal-form-${modalFormId}`);
+            document.getElementById(modalId).style.display = 'flex';
         }
 
-        function closeDeleteModal() {
-            document.getElementById('deleteModal').style.display = 'none';
+        function closeDeleteModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
         }
 
-        function confirmDelete() {
+        function confirmDelete(modalId) {
             if (formToSubmit) {
                 formToSubmit.submit();
             }
-            closeDeleteModal();
+            closeDeleteModal(modalId);
         }
     </script>
 

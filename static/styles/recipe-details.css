@@ -273,6 +273,7 @@
 
 .recipe-comments .comment {
     flex: 1;
+    display: flex;
     background-color: #ffffff;
     overflow: hidden;
     padding: 10px 25px;
@@ -287,20 +288,29 @@
     padding-right: 90px;
     margin-bottom: 0;
 }
-.recipe-comments .comment .reply-button {
-    float: right;
-    font-family: 'Lora', serif;
-    font-style: italic;
+
+.comment .comment-content {
+    width: 95%;
 }
-.recipe-comments .comment .reply-button:before {
-    font-family: FontAwesome;
-    content: "\f100";
-    font-style: normal;
-    margin-right: 5px;
+
+.recipe-comments .comment-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 5px;
 }
-.recipe-comments .comment .reply-button:hover {
+
+button#delete-comment-btn {
+    color: #aaa6a5;
+    font-size: 16px;
+    transition: color 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+#delete-comment-btn:hover {
     color: #c1452b;
 }
+
 .comment-form form {
     background-color: #ffffff;
     padding: 25px;

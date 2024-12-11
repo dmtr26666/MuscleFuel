@@ -9,6 +9,7 @@ html, body {
     margin: 0;
     display: flex;
     flex-direction: column;
+    scroll-behavior: smooth;
 }
 
 /* Main wrapper to grow and push the footer */
