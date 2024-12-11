@@ -67,9 +67,8 @@
                             </button>
                         {% endif %}
                     </form>
-                    {% if request.user == recipe.user %}
+                    {% if request.user == recipe.user or user_is_moderator or request.user.is_superuser %}
                         <a href="{% url 'recipe-edit' recipe.pk %}" id="recipe-edit-btn">Edit recipe</a>
-                        {#                      <a href="#" id="delete-recipe-btn">Delete recipe</a>#}
                         <form method="post" action="{% url 'recipe-delete' recipe.pk %}"
                               id="delete-form-{{ recipe.pk }}">
                             {% csrf_token %}

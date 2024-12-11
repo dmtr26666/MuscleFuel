@@ -13,6 +13,7 @@ from django_filters.views import FilterView
 
 from MuscleFuel.recipes.filters import RecipeFilter
 from MuscleFuel.recipes.forms import ReviewForm, RecipeCreationForm, CommentForm, RecipeEditForm
+from MuscleFuel.recipes.mixins import RecipePermissionMixin
 from MuscleFuel.recipes.models import Recipe, Review, SavedRecipe
 
 
@@ -76,6 +77,8 @@ class RecipeDetailsView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
+        context['user_is_moderator'] = self.request.user.groups.filter(name='Moderator').exists()
+
         total_macros = context['recipe'].protein + context['recipe'].carbohydrates + context['recipe'].fat
 
         context['protein_percentage'] = (context['recipe'].protein / total_macros) * 100 if total_macros else 0
@@ -88,11 +91,10 @@ class RecipeDetailsView(DetailView):
         raw_ingredients_list = context['recipe'].ingredients.split(',')
 
         ingredients_list = [ingredient.strip() for ingredient in raw_ingredients_list]
-
         context['ingredients_list'] = ingredients_list
+
         context['stars_range'] = range(1, 6)
 
-        user_review = None
         if self.request.user.is_authenticated:
             user_review = self.object.reviews.filter(user=self.request.user).first()
             self.object.is_saved = self.object.favourited_by.filter(user=self.request.user).exists()
@@ -138,7 +140,7 @@ class RecipeAddView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class RecipeEditView(LoginRequiredMixin, UpdateView):
+class RecipeEditView(LoginRequiredMixin, RecipePermissionMixin, UpdateView):
     model = Recipe
     form_class = RecipeEditForm
     template_name = 'recipes/recipe-create-edit.html'
@@ -153,13 +155,13 @@ class RecipeEditView(LoginRequiredMixin, UpdateView):
 
         return context
 
-    def dispatch(self, request, *args, **kwargs):
-        recipe = self.get_object()
-
-        if recipe.user != self.request.user:
-            raise PermissionDenied("You are not authorized to edit this recipe.")  # Return 403 Forbidden
-
-        return super().dispatch(request, *args, **kwargs)
+    # def dispatch(self, request, *args, **kwargs):
+    #     recipe = self.get_object()
+    #
+    #     if recipe.user != self.request.user:
+    #         raise PermissionDenied("You are not authorized to edit this recipe.")  # Return 403 Forbidden
+    #
+    #     return super().dispatch(request, *args, **kwargs)
 
 @login_required
 def toggle_favorite(request, pk):
@@ -194,7 +196,7 @@ def recipe_delete_functionality(request, pk):
     if request.method == 'POST':
         recipe = get_object_or_404(Recipe, pk=pk)
 
-        if request.user == recipe.user or request.user.is_staff:
+        if request.user == recipe.user or request.user.is_staff or request.user.groups.filter(name='Moderator').exists():
             recipe.delete()
             return redirect('recipe-list')  # Redirect to the recipe list page
         else:

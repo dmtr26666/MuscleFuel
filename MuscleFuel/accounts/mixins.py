@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.core.exceptions import PermissionDenied
 
 
@@ -11,3 +12,4 @@ class CheckUserAuthorization:
             raise PermissionDenied("You are not authorized to edit this recipe.")  # Return 403 Forbidden
 
         return super().dispatch(request, *args, **kwargs)
+
