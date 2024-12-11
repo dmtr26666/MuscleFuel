@@ -3,12 +3,22 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 
 from MuscleFuel.accounts.forms import CustomUserCreationForm, CustomUserChangeForm
+from MuscleFuel.accounts.models import Profile
 
 UserModel = get_user_model()
 
 # Register your models here.
+class ProfileInline(admin.StackedInline):
+    model = Profile
+    can_delete = False
+    verbose_name_plural = 'Profile'
+    fields = ('first_name', 'last_name', 'bio', 'location')
+    extra = 0
+
+
 @admin.register(UserModel)
 class CustomUserAdmin(UserAdmin):
+    inlines = (ProfileInline,)
     model = UserModel
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
