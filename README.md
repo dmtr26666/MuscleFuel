@@ -11,7 +11,7 @@ It provides a personalized space where users can gather and store all their cher
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/dmtr26666/VolunteerAct.git
+   git clone https://github.com/dmtr26666/MuscleFuel.git
    ```
 2. Create a virtual environment:
    ```sh
@@ -21,13 +21,17 @@ It provides a personalized space where users can gather and store all their cher
    ```sh
    pip install -r requirements.txt
    ```
-
 4. Configure .env file
 5. Setup postgres docker container
-6. Run the project:
+6. Run migrations:
    ```sh
-   python manage.py runserver
+   python manage.py migrate
    ```
+7. Add initial db objects:
+   ```sh
+    python manage.py loaddata MuscleFuel/recipes/fixtures/recipes.json
+   ```
+8. Run the project
 
 
 ---
