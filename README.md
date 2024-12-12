@@ -45,3 +45,5 @@ It provides a personalized space where users can gather and store all their cher
 - Moderation and Quality Control: Recipes can be reviewed and approved by moderators to maintain high-quality content and a positive user experience.
 
 ---
+
+П.С - Съжалявам за прекрачения срок за комитване, но проекта не тръгваше, защото нямаше данни в базата и също така трябваше да променя read.me файла.
