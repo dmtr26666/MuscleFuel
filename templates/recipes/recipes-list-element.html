@@ -21,7 +21,7 @@
                                    {% if choice.id|stringformat:"s" in filter.form.categories.value %}checked{% endif %}
                                    class="form-check-input">
                             <label for="category_{{ choice.id }}"
-                                   class="form-check-label">{{ choice.category }}</label>
+                                   class="form-check-label">{{ choice.category|lower|capfirst }}</label>
                         </div>
                     {% endfor %}
                 </div>

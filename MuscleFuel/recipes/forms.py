@@ -59,6 +59,8 @@ class RecipeBaseForm(forms.ModelForm):
 
         return image
 
+
+class RecipeCreationForm(RecipeBaseForm):
     def clean_title(self):
         title = self.cleaned_data.get('title')
 
@@ -66,9 +68,6 @@ class RecipeBaseForm(forms.ModelForm):
             raise ValidationError("A recipe with this title already exists. Please choose a different title.")
 
         return title
-
-class RecipeCreationForm(RecipeBaseForm):
-    pass
 
 
 class RecipeEditForm(RecipeBaseForm):

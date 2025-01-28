@@ -3,7 +3,7 @@
     margin: 100px;
     gap: 60px;
     align-items: flex-start;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 }
 
 .filter-form {
