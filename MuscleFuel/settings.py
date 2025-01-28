@@ -30,9 +30,9 @@ load_dotenv()
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['http://onlyfindwebhook193726.site/', '127.0.0.0', 'localhost']
+ALLOWED_HOSTS = ['onlyfindwebhook193726.site', '127.0.0.0', 'localhost']
 
 
 # Application definition
