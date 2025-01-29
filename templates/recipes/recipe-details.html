@@ -99,7 +99,7 @@
     <section class="recipe-details-ingredients-method">
         <div class="recipe-ingredients">
             <h2>Ingredients</h2>
-            <ul id="ingredients-list">
+            <ul class="ingredients-list">
                 {% for ingredient in ingredients_list %}
                     <li>{{ ingredient }}</li>
                 {% endfor %}
@@ -107,7 +107,11 @@
         </div>
         <div class="recipe-method">
             <h2>Cooking Instructions</h2>
-            <p>{{ recipe.instructions }}</p>
+            <ul class="instructions-list">
+                {% for instruction in instructions %}
+                    <li>{{ instruction }}</li>
+                {% endfor %}
+            </ul>
         </div>
     </section>
 
