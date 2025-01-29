@@ -10,7 +10,7 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView, DetailView, FormView, CreateView, UpdateView, DeleteView
 from django_filters.views import FilterView
-
+import re
 from MuscleFuel.recipes.filters import RecipeFilter
 from MuscleFuel.recipes.forms import ReviewForm, RecipeCreationForm, CommentForm, RecipeEditForm
 from MuscleFuel.recipes.mixins import RecipePermissionMixin
@@ -99,8 +99,8 @@ class RecipeDetailsView(DetailView):
         raw_ingredients_list = context['recipe'].ingredients.split('\n')
         context['ingredients_list'] = [ingredient.strip("\n") for ingredient in raw_ingredients_list]
 
-        raw_instruction_list = context['recipe'].instructions.split('\n\n')
-        context['instructions'] = [instruction.strip("\n") for instruction in raw_instruction_list]
+        raw_instruction_list = re.split(r'\n\s*\n', context['recipe'].instructions)
+        context['instructions'] = [instruction.strip() for instruction in raw_instruction_list]
 
         context['stars_range'] = range(1, 6)
 
