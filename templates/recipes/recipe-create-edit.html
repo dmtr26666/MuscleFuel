@@ -18,6 +18,7 @@
                 <div class="form-group">
                     {{ form.title.label_tag }}
                     {{ form.title }}
+                    <small class="form-text text-muted">{{ form.title.help_text }}</small>
                     {% if form.title.errors %}
                         <div class="text-danger">
                             {{ form.title.errors|join:", " }}
@@ -28,6 +29,7 @@
                 <div class="form-group">
                     {{ form.description.label_tag }}
                     {{ form.description }}
+                    <small class="form-text text-muted">{{ form.description.help_text }}</small>
                     {% if form.description.errors %}
                         <div class="text-danger">
                             {{ form.description.errors|join:", " }}
@@ -39,6 +41,7 @@
                 <div class="form-group">
                     {{ form.ingredients.label_tag }}
                     {{ form.ingredients }}
+                    <small class="form-text text-muted">{{ form.ingredients.help_text }}</small>
                     {% if form.ingredients.errors %}
                         <div class="text-danger">
                             {{ form.ingredients.errors|join:", " }}
@@ -50,6 +53,7 @@
                 <div class="form-group">
                     {{ form.instructions.label_tag }}
                     {{ form.instructions }}
+                    <small class="form-text text-muted">{{ form.instructions.help_text }}</small>
                     {% if form.instructions.errors %}
                         <div class="text-danger">
                             {{ form.instructions.errors|join:", " }}
@@ -72,6 +76,7 @@
                 <div class="form-group">
                     {{ form.cook_time.label_tag }}
                     {{ form.cook_time }}
+                    <small class="form-text text-muted">{{ form.cook_time.help_text }}</small>
                     {% if form.cook_time.errors %}
                         <div class="text-danger">
                             {{ form.cook_time.errors|join:", " }}
