@@ -24,6 +24,23 @@ class RecipeBaseForm(forms.ModelForm):
             'difficulty': 'Cooking difficulty',
             'is_public': 'Make the recipe public?',
         }
+        help_texts = {
+            'title': 'Enter a unique name for your recipe.',
+            'cook_time': 'Specify the cooking time in minutes.',
+            'description': 'Provide a brief description of the recipe.',
+            'instructions': 'Write step-by-step cooking instructions separated by empty line.',
+            'ingredients': 'Write all the necessary ingredients separated by new line.'
+        }
+        widgets = {
+            'title': forms.TextInput(attrs={'placeholder': 'e.g., Classic Pancakes'}),
+            'description': forms.Textarea(attrs={'placeholder': 'A short description of the dish...'}),
+            'instructions': forms.Textarea(
+                attrs={'placeholder': '1. Preheat the oven...\n\n2. Mix ingredients...\n\n3. Prepare the...'}),
+            'ingredients': forms.Textarea(
+                attrs={'placeholder': '200g chicken\n500g potatoes\n...'}
+            )
+        }
+
 
     categories = forms.ModelMultipleChoiceField(
         queryset=Category.objects.all(),
