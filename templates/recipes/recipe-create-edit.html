@@ -17,8 +17,8 @@
 
                 <div class="form-group">
                     {{ form.title.label_tag }}
-                    {{ form.title }}
                     <small class="form-text text-muted">{{ form.title.help_text }}</small>
+                    {{ form.title }}
                     {% if form.title.errors %}
                         <div class="text-danger">
                             {{ form.title.errors|join:", " }}
@@ -28,8 +28,8 @@
 
                 <div class="form-group">
                     {{ form.description.label_tag }}
-                    {{ form.description }}
                     <small class="form-text text-muted">{{ form.description.help_text }}</small>
+                    {{ form.description }}
                     {% if form.description.errors %}
                         <div class="text-danger">
                             {{ form.description.errors|join:", " }}
@@ -40,8 +40,8 @@
                 <!-- Ingredients -->
                 <div class="form-group">
                     {{ form.ingredients.label_tag }}
-                    {{ form.ingredients }}
                     <small class="form-text text-muted">{{ form.ingredients.help_text }}</small>
+                    {{ form.ingredients }}
                     {% if form.ingredients.errors %}
                         <div class="text-danger">
                             {{ form.ingredients.errors|join:", " }}
@@ -75,8 +75,8 @@
                 <!-- Cook Time -->
                 <div class="form-group">
                     {{ form.cook_time.label_tag }}
-                    {{ form.cook_time }}
                     <small class="form-text text-muted">{{ form.cook_time.help_text }}</small>
+                    {{ form.cook_time }}
                     {% if form.cook_time.errors %}
                         <div class="text-danger">
                             {{ form.cook_time.errors|join:", " }}
