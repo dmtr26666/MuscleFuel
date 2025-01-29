@@ -96,7 +96,7 @@ class RecipeDetailsView(DetailView):
 
         context['average_rating'] = self.object.get_average_rating()
 
-        raw_ingredients_list = context['recipe'].ingredients.split('\n')
+        raw_ingredients_list = context['recipe'].ingredients.split('\n\n')
         context['ingredients_list'] = [ingredient.strip("\n") for ingredient in raw_ingredients_list]
 
         raw_instruction_list = context['recipe'].instructions.split('\n')
