@@ -217,11 +217,11 @@
     text-transform: uppercase;
 }
 
-#ingredients-list {
+.ingredients-list, .instructions-list {
     list-style-type: none;
 }
 
-#ingredients-list li {
+.ingredients-list li, .instructions-list li {
     margin-top: 12px;
     padding-bottom: 6px;
     border-bottom: 1px solid lightgray;
