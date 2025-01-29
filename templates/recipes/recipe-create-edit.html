@@ -28,7 +28,6 @@
 
                 <div class="form-group">
                     {{ form.description.label_tag }}
-                    <small class="form-text text-muted">{{ form.description.help_text }}</small>
                     {{ form.description }}
                     {% if form.description.errors %}
                         <div class="text-danger">
@@ -52,8 +51,8 @@
                 <!-- Instructions -->
                 <div class="form-group">
                     {{ form.instructions.label_tag }}
-                    {{ form.instructions }}
                     <small class="form-text text-muted">{{ form.instructions.help_text }}</small>
+                    {{ form.instructions }}
                     {% if form.instructions.errors %}
                         <div class="text-danger">
                             {{ form.instructions.errors|join:", " }}
