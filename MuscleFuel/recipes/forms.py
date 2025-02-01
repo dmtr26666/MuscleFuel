@@ -41,7 +41,6 @@ class RecipeBaseForm(forms.ModelForm):
             )
         }
 
-
     categories = forms.ModelMultipleChoiceField(
         queryset=Category.objects.all(),
         widget=forms.CheckboxSelectMultiple,  # You can use a checkbox or a select widget
